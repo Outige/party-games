@@ -16,4 +16,13 @@ Then open `http://localhost:8000`.
 
 - **Ice Breakers** — Select a question category and pass the phone around. Asked questions are kept out of the deck for the rest of the browser session.
 
-Each game lives in its own directory. Ice Breakers reads its categories and questions from `ice-breakers/questions.js`, so category names and deck sizes can be changed without touching the game logic.
+Each game lives in its own directory. Ice Breakers reads 1–4 categories and their questions from `ice-breakers/questions.js`, so category names and deck sizes can be changed without touching the game logic.
+
+Players can also choose **Custom game** and paste JSON in this shape:
+
+```json
+{
+  "Warm up": ["What made you smile today?"],
+  "Go deep": ["What matters most to you?"]
+}
+```

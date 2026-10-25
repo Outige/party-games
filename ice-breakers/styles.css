@@ -28,13 +28,12 @@ body {
 }
 
 button,
-select {
+textarea {
   font: inherit;
 }
 
 button,
-a,
-select {
+a {
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -53,7 +52,7 @@ select {
 }
 
 .back-link,
-.new-session {
+.topbar-button {
   color: var(--cream);
   font-size: 0.8rem;
   font-weight: 700;
@@ -64,7 +63,12 @@ select {
   padding: 0.65rem 0;
 }
 
-.new-session {
+.session-actions {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.topbar-button {
   padding: 0.65rem 0.9rem;
   background: transparent;
   border: 1px solid rgba(255, 248, 233, 0.28);
@@ -73,9 +77,11 @@ select {
 }
 
 .back-link:focus-visible,
-.new-session:focus-visible,
-select:focus-visible,
-.draw-button:focus-visible {
+.topbar-button:focus-visible,
+.category-button:focus-visible,
+.close-dialog:focus-visible,
+.create-button:focus-visible,
+textarea:focus-visible {
   outline: 3px solid var(--yellow);
   outline-offset: 3px;
 }
@@ -116,45 +122,29 @@ h1 span {
   margin-bottom: 1rem;
 }
 
-.controls label {
+.controls h2,
+.custom-dialog label {
   display: block;
   margin: 0 0 0.45rem 0.15rem;
+  font-family: inherit;
   font-size: 0.73rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-.select-wrap {
-  position: relative;
+.category-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
 }
 
-.select-wrap::after {
-  position: absolute;
-  top: 50%;
-  right: 1.1rem;
-  color: var(--ink);
-  content: "↓";
-  font-weight: 700;
-  pointer-events: none;
-  transform: translateY(-50%);
+.category-buttons[data-count="1"] {
+  grid-template-columns: 1fr;
 }
 
-select {
-  width: 100%;
-  padding: 1rem 3rem 1rem 1rem;
-  color: var(--ink);
-  background: var(--cream);
-  border: 0;
-  border-radius: 0.9rem;
-  appearance: none;
-  cursor: pointer;
-  font-weight: 700;
-}
-
-select:disabled {
-  cursor: wait;
-  opacity: 0.65;
+.category-buttons[data-count="3"] .category-button:first-child {
+  grid-column: 1 / -1;
 }
 
 .question-card {
@@ -223,31 +213,54 @@ select:disabled {
   transform: rotate(-14deg);
 }
 
-.draw-button {
+.category-button {
   display: flex;
   width: 100%;
-  min-height: 4.25rem;
+  min-height: 6.5rem;
   padding: 1rem 1.15rem;
-  align-items: center;
+  align-items: stretch;
+  flex-direction: column;
   justify-content: space-between;
   color: var(--ink);
-  background: var(--yellow);
+  background: hsl(var(--category-hue), 88%, 78%);
   border: 2px solid var(--ink);
   border-radius: 1rem;
-  box-shadow: 4px 4px 0 var(--coral);
+  box-shadow: 4px 4px 0 hsl(var(--category-hue), 75%, 52%);
   cursor: pointer;
+  text-align: left;
   font-weight: 700;
   transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
 }
 
-.draw-button:not(:disabled):active {
-  box-shadow: 1px 1px 0 var(--coral);
+.category-button:not(:disabled):active {
+  box-shadow: 1px 1px 0 hsl(var(--category-hue), 75%, 52%);
   transform: translate(3px, 3px);
 }
 
-.draw-button:disabled {
+.category-button:disabled {
   cursor: not-allowed;
-  opacity: 0.52;
+  filter: grayscale(0.75);
+  opacity: 0.46;
+}
+
+.category-name {
+  overflow-wrap: anywhere;
+  font: 700 clamp(1rem, 4.5vw, 1.35rem) / 1.05 "Space Grotesk", sans-serif;
+  letter-spacing: -0.025em;
+}
+
+.category-meta {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.category-count {
+  font-size: 0.72rem;
+  opacity: 0.68;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .button-icon {
@@ -294,6 +307,112 @@ select:disabled {
   transform: translateY(0);
 }
 
+.custom-dialog {
+  width: min(calc(100% - 1.5rem), 34rem);
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  color: var(--ink);
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  border-radius: 1.25rem;
+  box-shadow: 8px 8px 0 var(--purple);
+}
+
+.custom-dialog::backdrop {
+  background: rgba(16, 12, 32, 0.78);
+  backdrop-filter: blur(4px);
+}
+
+.custom-dialog form {
+  padding: 1.25rem;
+}
+
+.dialog-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dialog-heading h2 {
+  margin: 0;
+  font: 700 1.8rem / 1 "Space Grotesk", sans-serif;
+  letter-spacing: -0.045em;
+}
+
+.dialog-heading .kicker {
+  color: var(--purple);
+}
+
+.close-dialog {
+  width: 2.35rem;
+  height: 2.35rem;
+  flex: 0 0 auto;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid rgba(25, 20, 45, 0.25);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.dialog-help {
+  margin: 1rem 0;
+  color: rgba(25, 20, 45, 0.72);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.json-example {
+  margin: 0 0 1.1rem;
+  padding: 0.8rem;
+  overflow-x: auto;
+  color: var(--cream);
+  background: var(--ink);
+  border-radius: 0.7rem;
+  font-size: 0.7rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.custom-dialog textarea {
+  width: 100%;
+  min-height: 11rem;
+  padding: 0.85rem;
+  resize: vertical;
+  color: var(--ink);
+  background: #fffdf7;
+  border: 2px solid rgba(25, 20, 45, 0.28);
+  border-radius: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.form-error {
+  min-height: 1.25rem;
+  margin: 0.55rem 0;
+  color: #b22831;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.create-button {
+  display: flex;
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0.8rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--cream);
+  background: var(--ink);
+  border: 0;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
 @keyframes deal {
   0% {
     opacity: 0.2;
@@ -313,6 +432,28 @@ select:disabled {
   .question-card {
     min-height: 21rem;
     padding: 1.6rem;
+  }
+
+  .category-buttons[data-count="3"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .category-buttons[data-count="3"] .category-button:first-child {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 25rem) {
+  .topbar {
+    align-items: flex-start;
+  }
+
+  .session-actions {
+    flex-direction: column;
+  }
+
+  .topbar-button {
+    padding: 0.5rem 0.7rem;
   }
 }
 

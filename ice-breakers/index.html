@@ -16,23 +16,22 @@
   <body>
     <main class="game-shell">
       <header class="topbar">
-        <a class="back-link" href="../" aria-label="Back to all games">← All games</a>
-        <button class="new-session" id="new-session" type="button">New session</button>
+        <a class="back-link" href="../index.html" aria-label="Back to all games">← All games</a>
+        <div class="session-actions">
+          <button class="topbar-button" id="custom-game" type="button">Custom game</button>
+          <button class="topbar-button" id="new-session" type="button">New session</button>
+        </div>
       </header>
 
       <section class="intro-panel" aria-labelledby="game-title">
         <p class="kicker">Pass the phone</p>
         <h1 id="game-title">Ice<br /><span>Breakers</span></h1>
-        <p>Choose how deep you want to go, then take turns drawing a question.</p>
+        <p>Pick any category whenever you draw, then pass the phone.</p>
       </section>
 
-      <section class="controls" aria-label="Question settings">
-        <label for="category">Pick a vibe</label>
-        <div class="select-wrap">
-          <select id="category" disabled>
-            <option>Loading questions…</option>
-          </select>
-        </div>
+      <section class="controls" aria-labelledby="category-heading">
+        <h2 id="category-heading">Draw from a category</h2>
+        <div class="category-buttons" id="category-buttons"></div>
       </section>
 
       <section class="question-card" id="question-card" aria-live="polite" aria-atomic="true">
@@ -40,18 +39,34 @@
           <span class="category-label" id="category-label">Ready?</span>
           <span class="counter" id="counter">—</span>
         </div>
-        <p class="question" id="question">Pick a vibe, then draw your first question.</p>
+        <p class="question" id="question">Choose any category to draw your first question.</p>
         <div class="scribble" aria-hidden="true"></div>
       </section>
-
-      <button class="draw-button" id="draw-button" type="button" disabled>
-        <span id="button-label">Draw a question</span>
-        <span class="button-icon" aria-hidden="true">✦</span>
-      </button>
 
       <p class="status" id="status" role="status">Loading the decks…</p>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <dialog class="custom-dialog" id="custom-dialog" aria-labelledby="custom-title">
+      <form id="custom-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="kicker">Make it yours</p>
+            <h2 id="custom-title">Create a custom game</h2>
+          </div>
+          <button class="close-dialog" id="close-dialog" type="button" aria-label="Close">×</button>
+        </div>
+        <p class="dialog-help">Paste a JSON object with 1–4 categories. Each category needs an array of questions.</p>
+        <pre class="json-example" aria-label="JSON format example">{
+  "Warm up": ["What made you smile today?"],
+  "Go deep": ["What matters most to you?"]
+}</pre>
+        <label for="custom-json">Your question JSON</label>
+        <textarea id="custom-json" rows="10" required spellcheck="false" placeholder='{"Category": ["First question?", "Second question?"]}'></textarea>
+        <p class="form-error" id="custom-error" role="alert"></p>
+        <button class="create-button" type="submit">Create game <span aria-hidden="true">✦</span></button>
+      </form>
+    </dialog>
   </body>
 </html>
