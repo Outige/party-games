@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#19142d" />
+    <meta
+      name="description"
+      content="A pass-the-phone icebreaker game with questions for every comfort level."
+    />
+    <title>Ice Breakers — Party Starter</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="questions.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="topbar">
+        <a class="back-link" href="../" aria-label="Back to all games">← All games</a>
+        <button class="new-session" id="new-session" type="button">New session</button>
+      </header>
+
+      <section class="intro-panel" aria-labelledby="game-title">
+        <p class="kicker">Pass the phone</p>
+        <h1 id="game-title">Ice<br /><span>Breakers</span></h1>
+        <p>Choose how deep you want to go, then take turns drawing a question.</p>
+      </section>
+
+      <section class="controls" aria-label="Question settings">
+        <label for="category">Pick a vibe</label>
+        <div class="select-wrap">
+          <select id="category" disabled>
+            <option>Loading questions…</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="question-card" id="question-card" aria-live="polite" aria-atomic="true">
+        <div class="card-topline">
+          <span class="category-label" id="category-label">Ready?</span>
+          <span class="counter" id="counter">—</span>
+        </div>
+        <p class="question" id="question">Pick a vibe, then draw your first question.</p>
+        <div class="scribble" aria-hidden="true"></div>
+      </section>
+
+      <button class="draw-button" id="draw-button" type="button" disabled>
+        <span id="button-label">Draw a question</span>
+        <span class="button-icon" aria-hidden="true">✦</span>
+      </button>
+
+      <p class="status" id="status" role="status">Loading the decks…</p>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

@@ -1,0 +1,326 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap");
+
+:root {
+  color-scheme: dark;
+  --ink: #19142d;
+  --cream: #fff8e9;
+  --purple: #6f63ff;
+  --coral: #ff795f;
+  --yellow: #ffe761;
+  --muted: rgba(255, 248, 233, 0.7);
+  --deck-hue: 250;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--cream);
+  background:
+    radial-gradient(circle at 15% 6%, hsla(var(--deck-hue), 80%, 66%, 0.32) 0 7rem, transparent 7.1rem),
+    radial-gradient(circle at 100% 62%, rgba(255, 121, 95, 0.2) 0 9rem, transparent 9.1rem),
+    var(--ink);
+  font-family: "DM Sans", system-ui, sans-serif;
+  transition: background-color 300ms ease;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+button,
+a,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.game-shell {
+  width: min(100% - 1.5rem, 34rem);
+  min-height: 100vh;
+  margin-inline: auto;
+  padding: 1rem 0 max(2rem, env(safe-area-inset-bottom));
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+}
+
+.back-link,
+.new-session {
+  color: var(--cream);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.back-link {
+  padding: 0.65rem 0;
+}
+
+.new-session {
+  padding: 0.65rem 0.9rem;
+  background: transparent;
+  border: 1px solid rgba(255, 248, 233, 0.28);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.back-link:focus-visible,
+.new-session:focus-visible,
+select:focus-visible,
+.draw-button:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
+}
+
+.intro-panel {
+  margin-bottom: 2.25rem;
+}
+
+.kicker {
+  margin: 0 0 0.45rem;
+  color: var(--yellow);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0 0 1rem;
+  font: 700 clamp(3.7rem, 17vw, 6.2rem) / 0.76 "Space Grotesk", sans-serif;
+  letter-spacing: -0.075em;
+}
+
+h1 span {
+  color: hsl(var(--deck-hue), 90%, 72%);
+  transition: color 300ms ease;
+}
+
+.intro-panel > p:last-child {
+  max-width: 28rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.controls {
+  margin-bottom: 1rem;
+}
+
+.controls label {
+  display: block;
+  margin: 0 0 0.45rem 0.15rem;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.select-wrap {
+  position: relative;
+}
+
+.select-wrap::after {
+  position: absolute;
+  top: 50%;
+  right: 1.1rem;
+  color: var(--ink);
+  content: "↓";
+  font-weight: 700;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+select {
+  width: 100%;
+  padding: 1rem 3rem 1rem 1rem;
+  color: var(--ink);
+  background: var(--cream);
+  border: 0;
+  border-radius: 0.9rem;
+  appearance: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+select:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.question-card {
+  position: relative;
+  display: flex;
+  min-height: 18.5rem;
+  margin-bottom: 1rem;
+  padding: 1.25rem;
+  overflow: hidden;
+  flex-direction: column;
+  color: var(--ink);
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  border-radius: 1.4rem;
+  box-shadow: 6px 6px 0 hsl(var(--deck-hue), 85%, 65%);
+  transition: box-shadow 300ms ease;
+}
+
+.question-card.is-changing {
+  animation: deal 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.card-topline {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.category-label {
+  display: inline-block;
+  max-width: 75%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.counter {
+  color: rgba(25, 20, 45, 0.58);
+}
+
+.question {
+  position: relative;
+  z-index: 1;
+  margin: auto 0;
+  padding: 2rem 0;
+  font: 700 clamp(1.8rem, 8vw, 2.55rem) / 1.08 "Space Grotesk", sans-serif;
+  letter-spacing: -0.045em;
+}
+
+.scribble {
+  position: absolute;
+  right: -3rem;
+  bottom: -4rem;
+  width: 10rem;
+  height: 10rem;
+  background: hsl(var(--deck-hue), 85%, 70%);
+  border-radius: 42% 58% 65% 35% / 52% 36% 64% 48%;
+  opacity: 0.42;
+  transform: rotate(-14deg);
+}
+
+.draw-button {
+  display: flex;
+  width: 100%;
+  min-height: 4.25rem;
+  padding: 1rem 1.15rem;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--ink);
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  border-radius: 1rem;
+  box-shadow: 4px 4px 0 var(--coral);
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+}
+
+.draw-button:not(:disabled):active {
+  box-shadow: 1px 1px 0 var(--coral);
+  transform: translate(3px, 3px);
+}
+
+.draw-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+}
+
+.button-icon {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  color: var(--cream);
+  background: var(--ink);
+  border-radius: 50%;
+}
+
+.status {
+  min-height: 1.25rem;
+  margin: 0.8rem 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 5;
+  max-width: 26rem;
+  margin-inline: auto;
+  padding: 0.85rem 1rem;
+  color: var(--ink);
+  background: var(--cream);
+  border-radius: 0.75rem;
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.25);
+  font-size: 0.85rem;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(1rem);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes deal {
+  0% {
+    opacity: 0.2;
+    transform: translateY(0.75rem) rotate(1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+}
+
+@media (min-width: 42rem) {
+  .game-shell {
+    padding-top: 2rem;
+  }
+
+  .question-card {
+    min-height: 21rem;
+    padding: 1.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
