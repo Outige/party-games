@@ -1,0 +1,432 @@
+{
+  "cards": [
+    {
+      "blue": ["Nelson Mandela", "Table Mountain", "Harry Potter", "Coca-Cola", "The Lion King"],
+      "yellow": ["Elon Musk", "Cape Town", "Minecraft", "McDonald's", "Titanic"]
+    },
+    {
+      "blue": ["Taylor Swift", "Google", "Springboks", "Star Wars", "KFC"],
+      "yellow": ["Cristiano Ronaldo", "YouTube", "Shark", "The Simpsons", "BMW"]
+    },
+    {
+      "blue": ["Trevor Noah", "Load shedding", "Facebook", "Lionel Messi", "Game of Thrones"],
+      "yellow": ["Jacob Zuma", "Eskom", "Instagram", "Usain Bolt", "Breaking Bad"]
+    },
+    {
+      "blue": ["DJ Fresh", "Nando's", "BlackBerry", "High School Musical", "Vodacom"],
+      "yellow": ["DJ Zinhle", "Spur", "Nokia 3310", "Hannah Montana", "MTN"]
+    },
+    {
+      "blue": ["Proteas", "Beyoncé", "Uber", "Finding Nemo", "Woolworths"],
+      "yellow": ["Bafana Bafana", "Rihanna", "Bolt", "Shrek", "Checkers"]
+    },
+    {
+      "blue": ["Kurt Darren", "WhatsApp", "Red Bull", "Mean Girls", "Durban"],
+      "yellow": ["Jack Parow", "BBM", "Monster Energy", "White Chicks", "Pretoria"]
+    },
+    {
+      "blue": ["Soweto", "Drake", "Takealot", "The Hangover", "PlayStation 2"],
+      "yellow": ["Sandton", "Eminem", "Gumtree", "Superbad", "Xbox"]
+    },
+    {
+      "blue": ["Mzansi Magic", "Justin Bieber", "Steers", "Toy Story", "Toyota Hilux"],
+      "yellow": ["SABC", "Miley Cyrus", "Debonairs", "Ice Age", "Volkswagen Polo"]
+    },
+    {
+      "blue": ["Apple", "Jacaranda FM", "Fast & Furious", "Castle Lager", "Jacaranda tree"],
+      "yellow": ["Samsung", "5FM", "Need for Speed", "Brutal Fruit", "Protea"]
+    },
+    {
+      "blue": ["Vuvuzela", "Adele", "Gautrain", "Pokémon", "Mr Price"],
+      "yellow": ["Biltong", "Lady Gaga", "MyCiTi", "Dragon Ball Z", "Cotton On"]
+    },
+    {
+      "blue": ["2010 World Cup", "Coldplay", "DStv", "Twilight", "Pick n Pay"],
+      "yellow": ["Rugby World Cup", "Linkin Park", "Netflix", "The Hunger Games", "Shoprite"]
+    },
+    {
+      "blue": ["Julius Malema", "Skrillex", "Mxit", "The Avengers", "Mercedes-Benz"],
+      "yellow": ["Cyril Ramaphosa", "Avicii", "WeChat", "Iron Man", "Audi"]
+    },
+    {
+      "blue": ["KykNET", "Nickelback", "Makro", "SpongeBob SquarePants", "Durban July"],
+      "yellow": ["Carte Blanche", "Green Day", "Game", "Fairly OddParents", "Oppikoppi"]
+    },
+    {
+      "blue": ["Boerewors", "Ed Sheeran", "Airbnb", "Friends", "H&M"],
+      "yellow": ["Koeksister", "Bruno Mars", "Booking.com", "How I Met Your Mother", "Zara"]
+    },
+    {
+      "blue": ["AB de Villiers", "Katy Perry", "Virgin Active", "The Dark Knight", "FNB"],
+      "yellow": ["Hashim Amla", "Pink", "Planet Fitness", "Spider-Man", "Standard Bank"]
+    },
+    {
+      "blue": ["Bryan Habana", "One Direction", "Discovery", "GTA V", "Hungry Lion"],
+      "yellow": ["Siya Kolisi", "Maroon 5", "Momentum", "Call of Duty", "Chicken Licken"]
+    },
+    {
+      "blue": ["Tyla", "Spotify", "Uber Eats", "The Office", "Air Jordan"],
+      "yellow": ["Black Coffee", "Apple Music", "Mr D", "Brooklyn Nine-Nine", "Crocs"]
+    },
+    {
+      "blue": ["Cape Town Stadium", "Kanye West", "Snapchat", "Avatar", "Sasol"],
+      "yellow": ["FNB Stadium", "Jay-Z", "TikTok", "Jurassic Park", "Engen"]
+    },
+    {
+      "blue": ["Gold Reef City", "Nicki Minaj", "Kauai", "The Notebook", "Discovery Channel"],
+      "yellow": ["uShaka Marine World", "Cardi B", "Vida e Caffè", "50 First Dates", "National Geographic"]
+    },
+    {
+      "blue": ["Clifton Beach", "Foo Fighters", "Nintendo Wii", "Grey's Anatomy", "Clicks"],
+      "yellow": ["Umhlanga", "Red Hot Chili Peppers", "Nintendo DS", "House", "Dis-Chem"]
+    },
+    {
+      "blue": ["Braai", "Pitbull", "iPod", "American Pie", "Castle Lite"],
+      "yellow": ["Potjie", "Flo Rida", "MP3 player", "Scary Movie", "Savanna"]
+    },
+    {
+      "blue": ["Oros", "Sean Paul", "Facebook Poke", "The Incredibles", "Capitec"],
+      "yellow": ["Appletiser", "Akon", "FarmVille", "Ratatouille", "Nedbank"]
+    },
+    {
+      "blue": ["Ster-Kinekor", "50 Cent", "Windows XP", "Prison Break", "Wimpy"],
+      "yellow": ["Nu Metro", "Snoop Dogg", "Internet Explorer", "Lost", "Mugg & Bean"]
+    },
+    {
+      "blue": ["Chappies", "Britney Spears", "Bluetooth", "Cars", "Gauteng"],
+      "yellow": ["Fizzers", "Christina Aguilera", "Infrared", "Madagascar", "Western Cape"]
+    },
+    {
+      "blue": ["Kwaito", "Amy Winehouse", "DVD", "Lord of the Rings", "Reebok"],
+      "yellow": ["Amapiano", "Lana Del Rey", "VHS", "Pirates of the Caribbean", "Adidas"]
+    },
+    {
+      "blue": ["BP", "David Guetta", "iPhone", "Desperate Housewives", "Pep"],
+      "yellow": ["Shell", "Calvin Harris", "BlackBerry Curve", "Gossip Girl", "Ackermans"]
+    },
+    {
+      "blue": ["Bakkie", "Kings of Leon", "Skype", "The Matrix", "Hansa"],
+      "yellow": ["Minibus taxi", "Arctic Monkeys", "MSN Messenger", "Inception", "Amstel"]
+    },
+    {
+      "blue": ["Jozi", "Black Eyed Peas", "Google Maps", "Fresh Prince", "Converse"],
+      "yellow": ["Mother City", "LMFAO", "Garmin", "That '70s Show", "Vans"]
+    },
+    {
+      "blue": ["Klipdrift", "Avril Lavigne", "YouTube Music", "Kung Fu Panda", "Toyota Fortuner"],
+      "yellow": ["Jägermeister", "Kelly Clarkson", "SoundCloud", "Monsters Inc.", "Ford Ranger"]
+    },
+    {
+      "blue": ["Lekker", "Chris Brown", "Wi-Fi", "Wolf of Wall Street", "Superbalist"],
+      "yellow": ["Howzit", "Ne-Yo", "3G", "The Social Network", "Zando"]
+    },
+    {
+      "blue": ["Mrs Balls Chutney", "Shakira", "PlayStation", "Modern Family", "Koo"],
+      "yellow": ["All Gold", "Jennifer Lopez", "Xbox 360", "Two and a Half Men", "Bakers"]
+    },
+    {
+      "blue": ["Bok van Blerk", "Gorillaz", "Google Chrome", "Breaking Bad", "Kulula"],
+      "yellow": ["Die Antwoord", "The Killers", "Firefox", "Better Call Saul", "FlySafair"]
+    },
+    {
+      "blue": ["Rooibos", "Kendrick Lamar", "Twitter", "The Walking Dead", "Nike"],
+      "yellow": ["Five Roses", "J. Cole", "Threads", "Stranger Things", "Puma"]
+    },
+    {
+      "blue": ["Cape Town Cycle Tour", "Alicia Keys", "iPad", "Family Guy", "Old Khaki"],
+      "yellow": ["Comrades Marathon", "Leona Lewis", "Kindle", "South Park", "Cape Union Mart"]
+    },
+    {
+      "blue": ["Bunny chow", "The Weeknd", "Tinder", "Toy Story 3", "Telkom"],
+      "yellow": ["Gatsby", "Post Malone", "Bumble", "Up", "Cell C"]
+    },
+    {
+      "blue": ["Nkandla", "Imagine Dragons", "Gmail", "Sherlock", "Discovery Vitality"],
+      "yellow": ["Union Buildings", "Muse", "Hotmail", "Suits", "eBucks"]
+    },
+    {
+      "blue": ["Chris Hani", "Macklemore", "Wikipedia", "The Big Bang Theory", "Krispy Kreme"],
+      "yellow": ["Desmond Tutu", "Jason Derulo", "Reddit", "New Girl", "Dunkin"]
+    },
+    {
+      "blue": ["Cape Point", "Ariana Grande", "GoPro", "Frozen", "Toyota Corolla"],
+      "yellow": ["Kruger National Park", "Selena Gomez", "Fitbit", "Moana", "Honda Civic"]
+    },
+    {
+      "blue": ["Rand", "Mumford & Sons", "PayPal", "The Departed", "Standard Bank"],
+      "yellow": ["Dollar", "The Lumineers", "SnapScan", "Goodfellas", "Absa"]
+    },
+    {
+      "blue": ["Mzoli's", "Lil Wayne", "PlayStation Portable", "The Hangover", "KFC"],
+      "yellow": ["Rocomamas", "T-Pain", "Game Boy", "Project X", "Burger King"]
+    },
+    {
+      "blue": ["Cape Doctor", "Usher", "Google Drive", "21 Jump Street", "Levi's"],
+      "yellow": ["Berg wind", "Nelly", "Dropbox", "22 Jump Street", "Diesel"]
+    },
+    {
+      "blue": ["Pap", "Kesha", "Candy Crush", "Pitch Perfect", "Checkers Sixty60"],
+      "yellow": ["Samp", "Fergie", "Temple Run", "Glee", "Woolies Dash"]
+    },
+    {
+      "blue": ["Bafana Bafana", "R Kelly", "LinkedIn", "Top Gear", "Audi A3"],
+      "yellow": ["Springboks", "Akon", "MySpace", "The Grand Tour", "BMW 3 Series"]
+    },
+    {
+      "blue": ["Gqeberha", "R.E.M.", "Google Earth", "The Pursuit of Happyness", "Spar"],
+      "yellow": ["Bloemfontein", "U2", "Street View", "Cast Away", "Food Lover's Market"]
+    },
+    {
+      "blue": ["Plett Rage", "Swedish House Mafia", "Uber", "Entourage", "Ray-Ban"],
+      "yellow": ["Matric dance", "Deadmau5", "Meter taxi", "Californication", "Oakley"]
+    },
+    {
+      "blue": ["Camps Bay", "Enrique Iglesias", "WhatsApp group", "Taken", "Vida e Caffè"],
+      "yellow": ["Ballito", "Ricky Martin", "BBM group", "John Wick", "Seattle Coffee"]
+    },
+    {
+      "blue": ["Hadedah", "Celine Dion", "Google Translate", "The Blind Side", "Makro"],
+      "yellow": ["Guinea fowl", "Whitney Houston", "Duolingo", "Remember the Titans", "Builders"]
+    },
+    {
+      "blue": ["Cape Flats", "The Script", "Instagram Story", "Hangover 2", "Woolworths Food"],
+      "yellow": ["Soweto", "Snow Patrol", "Snapchat Story", "Bridesmaids", "Checkers Hyper"]
+    },
+    {
+      "blue": ["Gatsby", "Nelly Furtado", "Bluetooth speaker", "Step Brothers", "Converse All Stars"],
+      "yellow": ["Bunny chow", "Natasha Bedingfield", "Aux cable", "Anchorman", "Vans Old Skool"]
+    },
+    {
+      "blue": ["Kruger Park", "Maroon 5", "AirPods", "Harry Potter", "Toyota"],
+      "yellow": ["Addo Elephant Park", "OneRepublic", "Beats headphones", "Lord of the Rings", "Nissan"]
+    },
+    {
+      "blue": ["Koeberg", "Evanescence", "Power bank", "The Conjuring", "Game"],
+      "yellow": ["Eskom", "Paramore", "Phone charger", "Paranormal Activity", "Makro"]
+    },
+    {
+      "blue": ["Chakalaka", "Jason Mraz", "Selfie stick", "Kung Fu Panda", "Pringles"],
+      "yellow": ["Atchar", "James Blunt", "Tripod", "Madagascar", "Doritos"]
+    },
+    {
+      "blue": ["Rugby sevens", "Bastille", "Google Docs", "Black Mirror", "Microsoft"],
+      "yellow": ["Cricket T20", "The 1975", "Microsoft Word", "Mr Robot", "Apple"]
+    },
+    {
+      "blue": ["Hermanus", "Sia", "Instagram filter", "Finding Dory", "Havaianas"],
+      "yellow": ["Knysna", "Duffy", "Snapchat filter", "Inside Out", "Birkenstock"]
+    },
+    {
+      "blue": ["Soweto Derby", "Lil Jon", "USB stick", "Rocky", "Nike Air Force 1"],
+      "yellow": ["Currie Cup", "Ludacris", "External hard drive", "Creed", "Adidas Superstar"]
+    },
+    {
+      "blue": ["Car guard", "Rihanna", "QR code", "Sherlock Holmes", "Pick n Pay"],
+      "yellow": ["Petrol attendant", "Beyoncé", "Barcode", "James Bond", "Shoprite"]
+    },
+    {
+      "blue": ["Cape Town CBD", "Zedd", "Google Calendar", "The Intern", "Samsung Galaxy"],
+      "yellow": ["Sandton City", "Kygo", "Outlook", "The Devil Wears Prada", "iPhone"]
+    },
+    {
+      "blue": ["Mzansi", "Pitbull", "Google Search", "The Karate Kid", "Red Bull"],
+      "yellow": ["Rainbow Nation", "Flo Rida", "Bing", "Rush Hour", "Monster"]
+    },
+    {
+      "blue": ["Checkers Mini Shops", "Mika", "iTunes", "Cars 2", "Ceres"],
+      "yellow": ["Pick n Pay Stickeez", "Paolo Nutini", "LimeWire", "Wall-E", "Liqui-Fruit"]
+    },
+    {
+      "blue": ["R200 note", "Calvin Harris", "ATM", "Ocean's Eleven", "Visa"],
+      "yellow": ["R5 coin", "David Guetta", "Cheque", "Now You See Me", "Mastercard"]
+    },
+    {
+      "blue": ["Kaizer Chiefs", "Metallica", "DSTV remote", "300", "Adidas"],
+      "yellow": ["Orlando Pirates", "AC/DC", "TV guide", "Gladiator", "Nike"]
+    },
+    {
+      "blue": ["University of Cape Town", "John Legend", "Google Scholar", "Good Will Hunting", "Red Bull"],
+      "yellow": ["Stellenbosch University", "Alicia Keys", "Wikipedia", "Dead Poets Society", "Monster"]
+    },
+    {
+      "blue": ["Cape Town taxi", "Major Lazer", "Waze", "Fast Five", "Toyota Quantum"],
+      "yellow": ["Golden Arrow", "Clean Bandit", "Google Maps", "Speed", "MyCiTi bus"]
+    },
+    {
+      "blue": ["Load shedding schedule", "Adele", "Power bank", "Dark Knight Rises", "Takealot"],
+      "yellow": ["Stage 6", "Dua Lipa", "Generator", "Batman Begins", "Amazon"]
+    },
+    {
+      "blue": ["Franschhoek", "Avicii", "Instagram Reel", "The Great Gatsby", "Mercedes"],
+      "yellow": ["Stellenbosch", "Martin Garrix", "TikTok", "Moulin Rouge", "BMW"]
+    },
+    {
+      "blue": ["Castle of Good Hope", "Bon Jovi", "USB cable", "Pirates of the Caribbean", "KFC"],
+      "yellow": ["Robben Island", "Queen", "HDMI cable", "Indiana Jones", "Nando's"]
+    },
+    {
+      "blue": ["Rugby scrum", "Kanye West", "GIF", "Ted", "Netflix"],
+      "yellow": ["Penalty kick", "Drake", "Meme", "Family Guy", "Showmax"]
+    },
+    {
+      "blue": ["Bokke", "The Chainsmokers", "Spotify playlist", "Suicide Squad", "Castle Lite"],
+      "yellow": ["Proteas", "Disclosure", "YouTube playlist", "Guardians of the Galaxy", "Savanna"]
+    },
+    {
+      "blue": ["Bo-Kaap", "Pharrell Williams", "Hashtag", "La La Land", "Instagram"],
+      "yellow": ["Long Street", "Robin Thicke", "Trending", "The Greatest Showman", "TikTok"]
+    },
+    {
+      "blue": ["Chapman's Peak", "Passenger", "Google Photos", "Interstellar", "Canon"],
+      "yellow": ["Garden Route", "Hozier", "iCloud", "Gravity", "Nikon"]
+    },
+    {
+      "blue": ["Randburg", "Kings of Leon", "Spotify Premium", "The Revenant", "Uber"],
+      "yellow": ["Rosebank", "Arctic Monkeys", "YouTube Premium", "The Martian", "Bolt"]
+    },
+    {
+      "blue": ["Kloof Street", "M83", "Bluetooth earphones", "Drive", "Converse"],
+      "yellow": ["Long Street", "MGMT", "Wired earphones", "Baby Driver", "Vans"]
+    },
+    {
+      "blue": ["Table View", "Khalid", "Instagram DM", "Get Out", "Mr Price"],
+      "yellow": ["Sea Point", "Frank Ocean", "Facebook Messenger", "Us", "Cotton On"]
+    },
+    {
+      "blue": ["Kirstenbosch", "Lorde", "Google Assistant", "The Fault in Our Stars", "Fitbit"],
+      "yellow": ["Company's Garden", "Ellie Goulding", "Siri", "Me Before You", "Apple Watch"]
+    },
+    {
+      "blue": ["Paarl", "George Ezra", "Podcast", "The Theory of Everything", "Spotify"],
+      "yellow": ["Wellington", "Vance Joy", "Audiobook", "A Beautiful Mind", "Audible"]
+    },
+    {
+      "blue": ["Knysna Heads", "Florence and the Machine", "Instagram Explore", "Gone Girl", "Airbnb"],
+      "yellow": ["Cape Point", "Of Monsters and Men", "TikTok For You Page", "Prisoners", "Booking.com"]
+    },
+    {
+      "blue": ["Rugby tackle", "Mumford & Sons", "Emoji", "The Social Network", "Facebook"],
+      "yellow": ["Cricket wicket", "Imagine Dragons", "Bitmoji", "Steve Jobs", "Apple"]
+    },
+    {
+      "blue": ["Waterfront", "Bastille", "Snapchat streak", "The Hangover", "Uber"],
+      "yellow": ["Canal Walk", "OneRepublic", "Instagram streak", "Project X", "Bolt"]
+    },
+    {
+      "blue": ["Durban beachfront", "Akon", "Google Street View", "Fast & Furious 7", "Toyota"],
+      "yellow": ["Camps Bay", "Sean Paul", "Google Earth", "Need for Speed", "BMW"]
+    },
+    {
+      "blue": ["Cape Town International Airport", "Coldplay", "Boarding pass", "Catch Me If You Can", "FlySafair"],
+      "yellow": ["OR Tambo", "U2", "Passport", "The Terminal", "Emirates"]
+    },
+    {
+      "blue": ["Biltong shop", "Jason Derulo", "Online banking", "Money Heist", "Capitec"],
+      "yellow": ["Padstal", "Ne-Yo", "Mobile banking", "Ozark", "FNB"]
+    },
+    {
+      "blue": ["South African flag", "Shakira", "Google News", "Invictus", "Springboks"],
+      "yellow": ["Rainbow Nation", "Waka Waka", "News24", "Mandela: Long Walk to Freedom", "Proteas"]
+    },
+    {
+      "blue": ["UCT Jammie Shuttle", "The Kooks", "Student card", "Pitch Perfect", "Varsity Cup"],
+      "yellow": ["Stellenbosch shuttle", "The Fray", "Campus Wi-Fi", "21 Jump Street", "Maties"]
+    },
+    {
+      "blue": ["Boschendal", "John Mayer", "Wine tasting", "Sideways", "Uber"],
+      "yellow": ["Spier", "Jack Johnson", "Beer tasting", "The Hangover", "Bolt"]
+    },
+    {
+      "blue": ["Boulders Beach", "Maroon 5", "Selfie", "Happy Feet", "GoPro"],
+      "yellow": ["Muizenberg", "OneRepublic", "Group photo", "Surf's Up", "Canon"]
+    },
+    {
+      "blue": ["Braai tongs", "David Guetta", "Bluetooth speaker", "Project X", "Castle"],
+      "yellow": ["Weber", "Calvin Harris", "Aux cable", "Superbad", "Savanna"]
+    },
+    {
+      "blue": ["Varsity", "The Script", "Google Docs", "Accepted", "Red Bull"],
+      "yellow": ["Gap year", "Snow Patrol", "Microsoft Word", "EuroTrip", "Monster"]
+    },
+    {
+      "blue": ["Matric Rage", "Swedish House Mafia", "Wristband", "Project X", "Vodka"],
+      "yellow": ["Orientation Week", "Avicii", "Student card", "American Pie", "Tequila"]
+    },
+    {
+      "blue": ["Hout Bay", "Milky Chance", "Instagram Story", "Jaws", "Snoek"],
+      "yellow": ["Kalk Bay", "Portugal. The Man", "Snapchat Story", "Finding Nemo", "Hake"]
+    },
+    {
+      "blue": ["Snoek braai", "Jack Johnson", "Surfboard", "Point Break", "Billabong"],
+      "yellow": ["Potjiekos", "Jason Mraz", "Skateboard", "Lords of Dogtown", "Quiksilver"]
+    },
+    {
+      "blue": ["Sea Point Promenade", "Lana Del Rey", "Fitbit", "Forrest Gump", "Nike"],
+      "yellow": ["Durban Promenade", "Billie Eilish", "Apple Watch", "Rocky", "Adidas"]
+    },
+    {
+      "blue": ["Rugby jersey", "Kendrick Lamar", "Online shopping", "Friday Night Lights", "Takealot"],
+      "yellow": ["Football jersey", "J. Cole", "Mall shopping", "Remember the Titans", "Superbalist"]
+    },
+    {
+      "blue": ["Bafana jersey", "Pitbull", "Vuvuzela", "District 9", "Adidas"],
+      "yellow": ["Springbok jersey", "Shakira", "Rugby ball", "Invictus", "Nike"]
+    },
+    {
+      "blue": ["Cape Town rain", "The Lumineers", "Weather app", "The Day After Tomorrow", "Uber"],
+      "yellow": ["Jozi thunderstorm", "Mumford & Sons", "Weather forecast", "Twister", "Bolt"]
+    },
+    {
+      "blue": ["Fourways", "Katy Perry", "Google Maps", "The Fast and the Furious", "BMW"],
+      "yellow": ["Century City", "Lady Gaga", "Waze", "Drive", "Audi"]
+    },
+    {
+      "blue": ["Kloofing", "Imagine Dragons", "GoPro", "127 Hours", "Cape Union Mart"],
+      "yellow": ["Hiking", "Bastille", "Fitbit", "Into the Wild", "Old Khaki"]
+    },
+    {
+      "blue": ["Lion's Head", "Coldplay", "Sunrise", "The Secret Life of Walter Mitty", "Instagram"],
+      "yellow": ["Signal Hill", "U2", "Sunset", "Into the Wild", "Facebook"]
+    },
+    {
+      "blue": ["Clifton Fourth", "Dua Lipa", "Sunscreen", "Baywatch", "Ray-Ban"],
+      "yellow": ["Camps Bay", "Rihanna", "Beach towel", "Blue Crush", "Oakley"]
+    },
+    {
+      "blue": ["Bree Street", "The Weeknd", "Uber Eats", "Chef", "Mr D"],
+      "yellow": ["Long Street", "Bruno Mars", "Takeout", "Ratatouille", "Nando's"]
+    },
+    {
+      "blue": ["Kirstenbosch concert", "Ed Sheeran", "Picnic blanket", "Pitch Perfect", "Woolworths"],
+      "yellow": ["Rocking the Daisies", "Coldplay", "Camping chair", "Almost Famous", "Checkers"]
+    },
+    {
+      "blue": ["Rocking the Daisies", "Calvin Harris", "Festival wristband", "Project X", "Red Bull"],
+      "yellow": ["Oppikoppi", "David Guetta", "Camping tent", "EuroTrip", "Monster"]
+    },
+    {
+      "blue": ["December holiday", "Ariana Grande", "Road trip", "We're the Millers", "Spotify"],
+      "yellow": ["Long weekend", "Justin Bieber", "Flight", "The Hangover", "Netflix"]
+    },
+    {
+      "blue": ["Garden Route", "Vance Joy", "Google Maps", "The Secret Life of Walter Mitty", "Toyota"],
+      "yellow": ["Panorama Route", "George Ezra", "Waze", "Into the Wild", "Volkswagen"]
+    },
+    {
+      "blue": ["Checkers Sixty60", "Post Malone", "Delivery bike", "Superstore", "Xtra Savings"],
+      "yellow": ["Mr D", "Drake", "Takeaway driver", "The Office", "Uber Eats"]
+    },
+    {
+      "blue": ["Loadshedder", "Imagine Dragons", "Candle", "Dark", "Eskom"],
+      "yellow": ["Inverter", "Coldplay", "Flashlight", "Black Mirror", "Solar panel"]
+    },
+    {
+      "blue": ["Braai broodjie", "John Legend", "Tongs", "Chef", "Woolworths"],
+      "yellow": ["Garlic bread", "Alicia Keys", "Spatula", "MasterChef", "Checkers"]
+    },
+    {
+      "blue": ["Garage pie", "Akon", "Petrol station", "Road Trip", "Engen"],
+      "yellow": ["Slap chips", "Sean Paul", "Drive-through", "Dude, Where's My Car?", "Shell"]
+    }
+  ]
+}

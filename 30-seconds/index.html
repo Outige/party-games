@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#113a8f">
+  <meta name="description" content="A fast, pass-the-phone 30 Seconds party game.">
+  <title>30 Seconds · Party Game</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="app" id="app">
+    <header class="masthead">
+      <div class="brand-mark" aria-hidden="true">30<span>″</span></div>
+      <div><div class="eyebrow">PASS THE PHONE · PLAY THE ROOM</div><div class="brand-name">SECONDS</div></div>
+    </header>
+
+    <section class="screen" id="setup-screen" aria-labelledby="setup-title">
+      <div class="hero">
+        <span class="pill">THE PARTY STARTS HERE</span>
+        <h1 id="setup-title">Think fast.<br><em>Talk faster.</em></h1>
+        <p>Pick your players and starting space colour. One phone, one card, 30 seconds.</p>
+      </div>
+      <form id="setup-form" novalidate>
+        <div class="panel">
+          <div class="section-heading"><h2>Players</h2><span>2–8 people</span></div>
+          <div class="stepper" aria-label="Number of players">
+            <button class="stepper-button" type="button" id="remove-player" aria-label="Remove a player">−</button>
+            <output id="player-count" aria-live="polite">2</output>
+            <button class="stepper-button" type="button" id="add-player" aria-label="Add a player">+</button>
+          </div>
+          <div id="player-fields" class="player-fields"></div>
+        </div>
+        <div class="panel">
+          <div class="section-heading"><h2>Starting colour</h2><span>First board space</span></div>
+          <div class="choice-row colour-options">
+            <label class="choice choice-blue"><input type="radio" name="colour" value="blue" checked><span><i aria-hidden="true"></i>Blue</span></label>
+            <label class="choice choice-yellow"><input type="radio" name="colour" value="yellow"><span><i aria-hidden="true"></i>Yellow</span></label>
+          </div>
+          <p class="setup-hint">The board alternates blue and yellow. Your space sets the first side you see each turn; you can flip the card freely.</p>
+        </div>
+        <div class="panel">
+          <div class="section-heading"><h2>Cards</h2><span>Your deck</span></div>
+          <div class="source-options">
+            <label class="source-choice"><input type="radio" name="card-source" value="default" checked><span>Use the party deck<small>Ready to play</small></span></label>
+            <label class="source-choice"><input type="radio" name="card-source" value="custom"><span>Paste custom cards<small>JSON in the same format as cards.json</small></span></label>
+          </div>
+          <div id="custom-cards-wrap" class="custom-cards" hidden>
+            <label for="custom-cards">Custom cards JSON</label>
+            <textarea id="custom-cards" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder='{"cards":[{"blue":["Prompt 1","Prompt 2","Prompt 3","Prompt 4","Prompt 5"],"yellow":["Prompt 1","Prompt 2","Prompt 3","Prompt 4","Prompt 5"]}]}'></textarea>
+            <p>Each card needs five Blue prompts and five Yellow prompts. This stays in your browser for this session.</p>
+          </div>
+        </div>
+        <p class="error-message" id="setup-error" role="alert" hidden></p>
+        <button type="submit" class="button button-primary" id="start-game">Let’s play <span aria-hidden="true">↗</span></button>
+      </form>
+    </section>
+
+    <section class="screen reveal-screen" id="reveal-screen" aria-labelledby="reveal-title" hidden>
+      <div class="reveal-confetti" aria-hidden="true">✦ &nbsp; ✷ &nbsp; ✦</div>
+      <span class="pill">FIRST UP</span>
+      <h1 id="reveal-title"><span id="starter-name"></span><br><em>goes first!</em></h1>
+      <p>Pass the phone to them and get ready.</p>
+      <button type="button" class="button button-primary" id="show-board">Show the board <span aria-hidden="true">→</span></button>
+    </section>
+
+    <section class="screen" id="board-screen" aria-labelledby="board-title" hidden>
+      <div class="screen-top"><span class="pill">THE RACE IS ON</span><span id="turn-counter" class="turn-counter"></span></div>
+      <h1 id="board-title" class="screen-title">The board<span class="dot">.</span></h1>
+      <div id="player-legend" class="player-legend"></div>
+      <div class="board-wrap"><div id="board" class="board" aria-label="Game board"></div></div>
+      <div class="turn-panel" id="turn-panel">
+        <div class="turn-label" id="turn-label">UP NEXT</div>
+        <h2 id="turn-player"></h2>
+        <p id="turn-detail"></p>
+        <button type="button" class="button button-primary" id="board-action"></button>
+      </div>
+    </section>
+
+    <section class="screen round-screen" id="round-screen" aria-labelledby="round-title" hidden>
+      <div class="round-header"><div><span class="eyebrow">NOW PLAYING</span><h1 id="round-title"></h1></div><div class="timer" id="timer" role="timer" aria-label="Seconds remaining">30</div></div>
+      <div class="timer-track"><div id="timer-progress"></div></div>
+      <div class="game-card" id="game-card"><div class="card-top"><span id="card-colour"></span><span>30 SECONDS <b>✦</b></span></div><ol id="prompts"></ol><div class="card-bottom">SAY IT · GUESS IT · KEEP GOING</div></div>
+      <div class="deck-note">ONE CARD · BOTH SIDES · 30 SECONDS</div>
+      <button type="button" class="button button-primary" id="flip-card">Flip card ↻</button>
+    </section>
+
+    <section class="screen score-screen" id="score-screen" aria-labelledby="score-title" hidden>
+      <div class="time-up">TIME’S UP!</div>
+      <span class="pill">NICE WORK, <span id="score-player-label"></span></span>
+      <h1 id="score-title">How many did<br>you get <em>correct?</em></h1>
+      <p>Review both sides, then count your correct answers out of 10.</p>
+      <div id="score-review" class="score-review" aria-label="Card used this turn"></div>
+      <div id="score-buttons" class="score-buttons" aria-label="Correct answers"></div>
+    </section>
+
+    <section class="screen winner-screen" id="winner-screen" aria-labelledby="winner-title" hidden>
+      <div class="trophy" aria-hidden="true">★</div>
+      <span class="pill">WE HAVE A WINNER</span>
+      <h1 id="winner-title"><span id="winner-name"></span><br><em>wins!</em></h1>
+      <p>They made it to the finish line.</p>
+      <div id="final-legend" class="player-legend"></div>
+      <div class="board-wrap"><div id="final-board" class="board" aria-label="Final game board"></div></div>
+      <div class="winner-actions"><button type="button" class="button button-primary" id="play-again">Play again ↗</button><button type="button" class="button button-secondary" id="new-game">New game</button></div>
+    </section>
+  </main>
+</body>
+</html>
