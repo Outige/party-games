@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#171717">
+  <meta name="description" content="A ridiculous, pass-the-phone card game for friends.">
+  <title>Cards Against Friends</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="home-link" id="home-link" href="../index.html" aria-label="All games">←</a>
+      <div class="brand">CARDS <span>AGAINST</span> FRIENDS</div>
+      <div class="round-badge" id="round-badge" hidden>R1</div>
+    </header>
+
+    <section class="screen setup-screen" id="setup-screen" aria-labelledby="setup-title">
+      <div class="setup-hero">
+        <div class="sticker">ONE PHONE<br>MANY BAD IDEAS</div>
+        <p class="eyebrow">THE PARTY GAME</p>
+        <h1 id="setup-title">Cards<br>Against<br><em>Friends.</em></h1>
+        <p>Fill the blank. Make your friends laugh. Let the judge decide.</p>
+      </div>
+      <form id="setup-form" class="setup-form" novalidate>
+        <div class="setup-row">
+          <div><label for="player-count">How many players?</label><small>3–10 · Players are numbered</small></div>
+          <div class="stepper">
+            <button type="button" id="minus-player" aria-label="Remove player">−</button>
+            <output id="player-count">3</output>
+            <button type="button" id="plus-player" aria-label="Add player">+</button>
+          </div>
+        </div>
+        <fieldset class="deck-choice">
+          <legend>Pick your deck</legend>
+          <label><input type="radio" name="deck" value="default" checked><span>Party deck</span></label>
+          <label><input type="radio" name="deck" value="custom"><span>Custom JSON</span></label>
+        </fieldset>
+        <div class="custom-wrap" id="custom-wrap" hidden>
+          <label for="custom-json">Paste cards.json format</label>
+          <textarea id="custom-json" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder='{"black_cards":["Why is everyone talking about ______?"],"white_cards":["A bad idea.","A lost shoe.","A loud goose.","A tiny cake.","A fake moustache.","An old sock."]}'></textarea>
+          <small>Unique cards; 3 white per non-judge. Black ≤100 characters, white ≤75. Browser only.</small>
+        </div>
+        <p class="error" id="setup-error" role="alert" hidden></p>
+        <button class="primary-button" id="start-game" type="submit">START THE CHAOS <span>→</span></button>
+      </form>
+    </section>
+
+    <section class="screen intro-screen" id="intro-screen" aria-labelledby="intro-title" hidden>
+      <div class="stage-label">ROUND <span id="intro-round"></span> · THE JUDGE</div>
+      <h1 id="intro-title"><span id="judge-name"></span><br><em>is judging.</em></h1>
+      <div class="black-card intro-card"><span class="card-kicker">THE BLACK CARD</span><p id="intro-prompt"></p><span class="card-footer">CARDS AGAINST FRIENDS</span></div>
+      <p class="stage-hint">Everyone else picks one answer. The judge chooses their favourite.</p>
+      <button type="button" class="primary-button" id="begin-picks">PASS TO FIRST PLAYER <span>→</span></button>
+    </section>
+
+    <section class="screen handoff-screen" id="handoff-screen" aria-labelledby="handoff-title" hidden>
+      <div class="handoff-icon" aria-hidden="true">↝</div>
+      <p class="eyebrow" id="handoff-role"></p>
+      <h1 id="handoff-title">Pass to<br><em id="handoff-player"></em></h1>
+      <p id="handoff-hint"></p>
+      <button type="button" class="primary-button" id="handoff-action">I HAVE THE PHONE <span>→</span></button>
+    </section>
+
+    <section class="screen pick-screen" id="pick-screen" aria-labelledby="pick-title" hidden>
+      <div class="stage-label" id="pick-title">PLAYER 1 · PICK YOUR FUNNIEST</div>
+      <div class="black-card prompt-card"><span class="card-kicker">FILL THIS BLANK</span><p id="pick-prompt"></p></div>
+      <p class="pick-hint">Tap one answer. Nobody else will see who picked it.</p>
+      <div class="options" id="options"></div>
+    </section>
+
+    <section class="screen vote-screen" id="vote-screen" aria-labelledby="vote-title" hidden>
+      <div class="stage-label" id="vote-title">JUDGE · PICK THE WINNER</div>
+      <div class="black-card prompt-card"><span class="card-kicker">THE BLACK CARD</span><p id="vote-prompt"></p></div>
+      <div class="candidate-count" id="candidate-count"></div>
+      <div class="candidate-card" id="candidate-card"></div>
+      <div class="vote-controls">
+        <button type="button" class="outline-button" id="previous-candidate" aria-label="Previous answer">←</button>
+        <button type="button" class="primary-button" id="vote-candidate">VOTE FOR THIS ONE <span>★</span></button>
+        <button type="button" class="outline-button" id="next-candidate" aria-label="Next answer">→</button>
+      </div>
+      <p class="stage-hint">Answers are anonymous until you vote.</p>
+    </section>
+
+    <section class="screen reveal-screen" id="reveal-screen" aria-labelledby="reveal-title" hidden>
+      <div class="winner-star" aria-hidden="true">★</div>
+      <p class="eyebrow">THE JUDGE HAS SPOKEN</p>
+      <h1 id="reveal-title"><span id="winner-name"></span><br><em>gets the point!</em></h1>
+      <div class="winning-combo"><p id="reveal-prompt"></p><strong id="reveal-answer"></strong></div>
+      <p class="stage-hint" id="reveal-score"></p>
+      <button type="button" class="primary-button" id="next-round">NEXT ROUND <span>→</span></button>
+    </section>
+
+    <section class="screen results-screen" id="results-screen" aria-labelledby="results-title" hidden>
+      <div class="stage-label" id="results-reason">GAME OVER</div>
+      <h1 id="results-title">The<br><em>damage.</em></h1>
+      <div class="results-subtitle" id="results-summary"></div>
+      <div class="leaderboard" id="leaderboard" aria-label="Leaderboard"></div>
+      <div class="stats" id="stats"></div>
+      <div class="results-actions">
+        <button type="button" class="primary-button" id="play-again">PLAY AGAIN <span>↻</span></button>
+        <button type="button" class="outline-button" id="new-game">NEW GAME</button>
+      </div>
+    </section>
+
+    <button type="button" class="end-button" id="end-game" hidden aria-label="Hold for 3 seconds to end game">
+      <span class="end-progress" aria-hidden="true"></span><span class="end-text">HOLD 3s TO END GAME</span>
+    </button>
+  </main>
+</body>
+</html>

@@ -141,6 +141,37 @@ h1 span {
   background: #ffd12f;
 }
 
+.card-art-friends {
+  background: #cbff63;
+}
+
+.friends-mark {
+  z-index: 2;
+  display: grid;
+  width: 9rem;
+  height: 11rem;
+  place-items: center;
+  color: #cbff63;
+  background: #171717;
+  border: 3px solid #171717;
+  border-radius: 1rem;
+  box-shadow: 8px 8px 0 #ef5b49;
+  font-size: 6rem;
+  transform: rotate(-9deg);
+}
+
+.friends-card {
+  position: absolute;
+  width: 8rem;
+  height: 10rem;
+  border: 3px solid #171717;
+  border-radius: 1rem;
+  background: #fff7e8;
+}
+
+.friends-card-one { transform: translate(2.9rem, .3rem) rotate(14deg); }
+.friends-card-two { transform: translate(-2.5rem, -.3rem) rotate(-22deg); }
+
 .seconds-mark {
   display: flex;
   width: 10rem;
