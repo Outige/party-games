@@ -18,6 +18,7 @@ const game = {
   activeColour: "blue",
   timer: null,
   deadline: 0,
+  lastCountdownSecond: -1,
   gameStarted: false,
   winner: null,
   turnNumber: 1,
@@ -242,13 +243,36 @@ function playTimeUpSound() {
   if (navigator.vibrate) navigator.vibrate([150, 90, 150]);
 }
 
+function playCountdownTick() {
+  try {
+    if (!game.audio) return;
+    const now = game.audio.currentTime;
+    const oscillator = game.audio.createOscillator();
+    const gain = game.audio.createGain();
+    oscillator.type = "sine";
+    oscillator.frequency.value = 660;
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.045, now + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+    oscillator.connect(gain).connect(game.audio.destination);
+    oscillator.start(now);
+    oscillator.stop(now + 0.1);
+  } catch (error) { /* The visible countdown still works without audio. */ }
+}
+
 function updateTimer() {
   if (game.phase !== "round") return;
   const remaining = Math.max(0, game.deadline - performance.now());
-  $("timer").textContent = String(Math.ceil(remaining / 1000));
+  const seconds = Math.ceil(remaining / 1000);
+  $("timer").textContent = String(seconds);
   $("timer").classList.toggle("urgent", remaining <= 10000);
   $("timer-progress").style.width = `${remaining / 30000 * 100}%`;
-  if (remaining <= 0) endTurn();
+  if (remaining <= 0) {
+    endTurn();
+  } else if (seconds <= 3 && seconds !== game.lastCountdownSecond) {
+    game.lastCountdownSecond = seconds;
+    playCountdownTick();
+  }
 }
 
 function startTurn() {
@@ -256,6 +280,7 @@ function startTurn() {
   primeAudio();
   game.phase = "round";
   game.deadline = performance.now() + 30000;
+  game.lastCountdownSecond = -1;
   game.activeColour = colourAtPosition(game.currentPositions[game.currentPlayer]);
   drawCard();
   $("round-title").textContent = game.players[game.currentPlayer];

@@ -99,6 +99,11 @@ h1 span {
   font-weight: 700;
 }
 
+.games {
+  display: grid;
+  gap: 1.5rem;
+}
+
 .game-card {
   display: grid;
   overflow: hidden;
@@ -130,6 +135,32 @@ h1 span {
   place-items: center;
   background: var(--orange);
   border-bottom: 3px solid var(--ink);
+}
+
+.card-art-seconds {
+  background: #ffd12f;
+}
+
+.seconds-mark {
+  display: flex;
+  width: 10rem;
+  height: 10rem;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: #1745af;
+  border-radius: 1.75rem;
+  box-shadow: 10px 10px 0 #171325;
+  font: 700 5.4rem/1 "Space Grotesk", sans-serif;
+  letter-spacing: -0.12em;
+  transform: rotate(-7deg);
+}
+
+.seconds-mark span {
+  align-self: flex-start;
+  margin-top: 1.5rem;
+  margin-left: 0.1rem;
+  font-size: 3rem;
 }
 
 .question-mark {
