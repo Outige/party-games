@@ -69,6 +69,7 @@
       <div class="black-card prompt-card"><span class="card-kicker">FILL THIS BLANK</span><p id="pick-prompt"></p></div>
       <p class="pick-hint">Tap one answer. Nobody else will see who picked it.</p>
       <div class="options" id="options"></div>
+      <button type="button" class="skip-button" id="skip-choice">None of these — skip my turn</button>
     </section>
 
     <section class="screen vote-screen" id="vote-screen" aria-labelledby="vote-title" hidden>
@@ -86,8 +87,8 @@
 
     <section class="screen reveal-screen" id="reveal-screen" aria-labelledby="reveal-title" hidden>
       <div class="winner-star" aria-hidden="true">★</div>
-      <p class="eyebrow">THE JUDGE HAS SPOKEN</p>
-      <h1 id="reveal-title"><span id="winner-name"></span><br><em>gets the point!</em></h1>
+      <p class="eyebrow" id="reveal-eyebrow">THE JUDGE HAS SPOKEN</p>
+      <h1 id="reveal-title"><span id="winner-name"></span><br><em id="reveal-outcome">gets the point!</em></h1>
       <div class="winning-combo"><p id="reveal-prompt"></p><strong id="reveal-answer"></strong></div>
       <p class="stage-hint" id="reveal-score"></p>
       <button type="button" class="primary-button" id="next-round">NEXT ROUND <span>→</span></button>

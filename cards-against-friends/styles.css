@@ -95,6 +95,8 @@ h1 em { color: #ef5b49; font-style: normal; }
 .option-card { flex: 1; min-height: 0; width: 100%; padding: 12px 15px; display: flex; align-items: center; gap: 12px; border: 2px solid #171717; border-radius: 12px; background: #fffdf7; box-shadow: 3px 3px 0 #171717; text-align: left; }
 .option-card .option-number { align-self: flex-start; flex: none; padding: 4px 6px; border-radius: 5px; background: #cbff63; font-size: 11px; font-weight: 1000; }
 .option-card .option-text { font-size: clamp(14px, 4.3vw, 20px); line-height: 1.13; font-weight: 900; overflow-wrap: anywhere; }
+.skip-button { flex: none; align-self: center; min-height: 36px; padding: 0 12px; border: 1px solid #a8a49b; border-radius: 9px; background: transparent; color: #5d5a53; font-size: 12px; font-weight: 900; }
+.skip-button:active { background: #e9e5d9; }
 
 .candidate-count { align-self: center; margin-top: 2px; color: #77736c; font-size: 11px; font-weight: 1000; letter-spacing: .1em; }
 .candidate-card { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 16px; border: 3px solid #171717; border-radius: 16px; background: #fffdf7; box-shadow: 5px 5px 0 #cbff63; text-align: center; font-size: clamp(22px, 7vw, 34px); line-height: 1.13; letter-spacing: -.04em; font-weight: 1000; overflow-wrap: anywhere; }

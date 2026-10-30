@@ -145,10 +145,31 @@ function submitChoice(cardIndex) {
   game.round.submissions.push({ playerIndex, cardIndex });
   game.players[playerIndex].submissions++;
   game.players[playerIndex].swears += (answer.match(SWEAR_WORDS) || []).length;
-  if (answer.length > game.players[playerIndex].longestAnswer) game.players[playerIndex].longestAnswer = answer.length;
+  advancePicker();
+}
+
+function skipChoice() {
+  if (game.phase !== "pick") return;
+  const playerIndex = game.round.pickerOrder[game.round.pickerCursor];
+  game.players[playerIndex].skips++;
+  advancePicker();
+}
+
+function advancePicker() {
   game.round.pickerCursor++;
   if (game.round.pickerCursor < game.round.pickerOrder.length) {
     showHandoff("picker");
+  } else if (game.round.submissions.length === 0) {
+    game.roundsPlayed++;
+    game.phase = "reveal";
+    $("reveal-eyebrow").textContent = "NO ANSWERS THIS ROUND";
+    $("winner-name").textContent = "Everyone";
+    $("reveal-outcome").textContent = "passed.";
+    $("reveal-prompt").textContent = game.cards.black_cards[game.round.blackIndex];
+    $("reveal-answer").textContent = "The judge was spared this time.";
+    $("reveal-score").textContent = "No points awarded.";
+    $("next-round").firstChild.textContent = game.blackRemaining.length ? "NEXT ROUND " : "SEE RESULTS ";
+    showScreen("reveal-screen");
   } else {
     game.round.candidates = shuffle([...game.round.submissions]);
     game.round.candidateCursor = 0;
@@ -185,7 +206,9 @@ function voteForCandidate() {
   });
   game.roundsPlayed++;
   game.phase = "reveal";
+  $("reveal-eyebrow").textContent = "THE JUDGE HAS SPOKEN";
   $("winner-name").textContent = playerName(winner.playerIndex);
+  $("reveal-outcome").textContent = "gets the point!";
   $("reveal-prompt").textContent = game.cards.black_cards[game.round.blackIndex];
   $("reveal-answer").textContent = game.cards.white_cards[winner.cardIndex];
   $("reveal-score").textContent = `${playerName(winner.playerIndex)} now has ${game.players[winner.playerIndex].score} ${game.players[winner.playerIndex].score === 1 ? "point" : "points"}.`;
@@ -210,7 +233,7 @@ function showResults(reason) {
   cancelEndHold();
   game.phase = "results";
   $("results-reason").textContent = reason;
-  $("results-summary").textContent = `${game.roundsPlayed} ${game.roundsPlayed === 1 ? "round" : "rounds"} judged · ${game.players.reduce((total, player) => total + player.submissions, 0)} answers submitted`;
+  $("results-summary").textContent = `${game.roundsPlayed} ${game.roundsPlayed === 1 ? "round" : "rounds"} played · ${game.players.reduce((total, player) => total + player.submissions, 0)} answers submitted`;
   const ranking = game.players.map((player, index) => ({ ...player, index })).sort((a, b) => b.score - a.score || a.index - b.index);
   const board = $("leaderboard");
   board.replaceChildren();
@@ -233,11 +256,11 @@ function showResults(reason) {
   $("stats").replaceChildren();
   const sweary = ranking.reduce((best, player) => player.swears > best.swears ? player : best, ranking[0]);
   const rejected = ranking.reduce((best, player) => player.rejected > best.rejected ? player : best, ranking[0]);
-  const wordy = ranking.reduce((best, player) => player.longestAnswer > best.longestAnswer ? player : best, ranking[0]);
+  const selective = ranking.reduce((best, player) => player.skips > best.skips ? player : best, ranking[0]);
   addStat("Most swear words", sweary.swears ? `${playerName(sweary.index)} · ${sweary.swears}` : "Too polite to count");
   addStat("Fan favourite", ranking[0].score ? `${playerName(ranking[0].index)} · ${ranking[0].score} wins` : "No votes yet");
   addStat("Robbed by the judge", rejected.rejected ? `${playerName(rejected.index)} · ${rejected.rejected} times` : "Everyone's still safe");
-  addStat("Longest answer", wordy.longestAnswer ? `${playerName(wordy.index)} · ${wordy.longestAnswer} characters` : "No answers yet");
+  addStat("Most selective", selective.skips ? `${playerName(selective.index)} · ${selective.skips} skips` : "Everyone played a card");
   showScreen("results-screen");
 }
 
@@ -277,7 +300,7 @@ async function startGame(event) {
       catch (error) { throw new Error("cards.json contains invalid JSON."); }
     }
     game.cards = validateDeck(data, playerCount);
-    game.players = Array.from({ length: playerCount }, () => ({ score: 0, submissions: 0, rejected: 0, swears: 0, longestAnswer: 0 }));
+    game.players = Array.from({ length: playerCount }, () => ({ score: 0, submissions: 0, rejected: 0, swears: 0, skips: 0 }));
     game.judgeIndex = Math.floor(Math.random() * playerCount);
     game.blackRemaining = shuffle(game.cards.black_cards.map((_, index) => index));
     game.roundsPlayed = 0;
@@ -306,6 +329,7 @@ $("handoff-action").addEventListener("click", () => {
 $("previous-candidate").addEventListener("click", () => moveCandidate(-1));
 $("next-candidate").addEventListener("click", () => moveCandidate(1));
 $("vote-candidate").addEventListener("click", voteForCandidate);
+$("skip-choice").addEventListener("click", skipChoice);
 $("next-round").addEventListener("click", () => {
   if (game.phase !== "reveal") return;
   game.judgeIndex = (game.judgeIndex + 1) % game.players.length;
@@ -313,7 +337,7 @@ $("next-round").addEventListener("click", () => {
 });
 $("play-again").addEventListener("click", () => {
   if (game.phase !== "results") return;
-  game.players.forEach((player) => Object.assign(player, { score: 0, submissions: 0, rejected: 0, swears: 0, longestAnswer: 0 }));
+  game.players.forEach((player) => Object.assign(player, { score: 0, submissions: 0, rejected: 0, swears: 0, skips: 0 }));
   game.judgeIndex = Math.floor(Math.random() * game.players.length);
   game.blackRemaining = shuffle(game.cards.black_cards.map((_, index) => index));
   game.roundsPlayed = 0;
