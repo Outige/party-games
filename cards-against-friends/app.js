@@ -19,7 +19,6 @@ function showScreen(id) {
   screenIds.forEach((screen) => { $(screen).hidden = screen !== id; });
   $("end-game").hidden = id === "setup-screen" || id === "results-screen";
   $("round-badge").hidden = id === "setup-screen" || id === "results-screen";
-  $("home-link").hidden = id !== "setup-screen" && id !== "results-screen";
   if (game.round) $("round-badge").textContent = `R${game.round.number}`;
 }
 

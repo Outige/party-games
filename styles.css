@@ -149,6 +149,24 @@ h1 span {
   background: #fcd534;
 }
 
+.card-art-blnk {
+  background: #171b27;
+}
+
+.blnk-mark {
+  display: grid;
+  width: 10rem;
+  height: 10rem;
+  place-items: center;
+  border: 4px solid #171325;
+  border-radius: 1.7rem;
+  background: #e8ff59;
+  color: #171b27;
+  box-shadow: 9px 9px 0 #f77964;
+  font: 700 8rem/1 "Space Grotesk", sans-serif;
+  transform: rotate(-8deg);
+}
+
 .headbanz-mark {
   position: relative;
   display: grid;

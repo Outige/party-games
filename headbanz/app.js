@@ -25,7 +25,6 @@ const game = {
 function showScreen(id) {
   screens.forEach((screen) => { $(screen).hidden = screen !== id; });
   $("end-game").hidden = id === "setup-screen" || id === "results-screen";
-  $("home-link").hidden = id !== "setup-screen" && id !== "results-screen";
   $("turn-chip").hidden = id === "setup-screen" || id === "results-screen";
   $("turn-chip").textContent = `TURN ${game.turnNumber}`;
 }

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#171b27">
+  <meta name="description" content="Blnk: a fast reaction game for one or two players.">
+  <title>Blnk · Party Starter</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="app" id="app">
+    <header class="topbar">
+      <a class="home-link" href="../index.html" aria-label="All games">←</a>
+      <div class="logo">BL<span>N</span>K<span class="logo-dot">.</span></div>
+      <span class="topbar-caption">REACTION GAME</span>
+    </header>
+
+    <section class="screen setup-screen" id="setup-screen" aria-labelledby="setup-title">
+      <div class="setup-hero">
+        <div class="bolt" aria-hidden="true">↯</div>
+        <p class="eyebrow">READY WHEN YOU AREN'T</p>
+        <h1 id="setup-title">Don't<br><em>blnk.</em></h1>
+        <p>Wait for the flash. Tap faster than your brain can think.</p>
+      </div>
+      <div class="mode-list">
+        <button type="button" class="mode-card" id="choose-solo"><span class="mode-number">01</span><span><strong>Solo sprint</strong><small>One flash. Your fastest time wins.</small></span><b aria-hidden="true">→</b></button>
+        <button type="button" class="mode-card" id="choose-duel"><span class="mode-number">02</span><span><strong>Head to head</strong><small>Two players. Ten flashes. First touch scores.</small></span><b aria-hidden="true">→</b></button>
+      </div>
+      <div class="setup-record"><span>FASTEST ON THIS PHONE</span><strong id="setup-best">No time yet</strong></div>
+    </section>
+
+    <section class="screen solo-screen" id="solo-screen" aria-labelledby="solo-title" hidden>
+      <div class="screen-heading"><span class="eyebrow">ONE PLAYER</span><h1 id="solo-title">Eyes open.<br><em>Finger ready.</em></h1></div>
+      <div class="solo-target" id="solo-target" role="button" tabindex="0" aria-label="Tap when the screen flashes">
+        <span class="target-icon" id="solo-icon" aria-hidden="true">◎</span>
+        <strong id="solo-message">Tap Start, then wait for the flash.</strong>
+        <small id="solo-submessage">Tap anywhere in this panel when it lights up.</small>
+      </div>
+      <button type="button" class="action-button" id="solo-start">START ROUND <span>→</span></button>
+      <p class="footnote" id="solo-footnote">Too early? That attempt won't count.</p>
+    </section>
+
+    <section class="screen solo-result-screen" id="solo-result-screen" aria-labelledby="solo-result-title" hidden>
+      <span class="eyebrow">YOUR REACTION TIME</span>
+      <h1 id="solo-result-title"><span id="solo-time">000</span><em>ms</em></h1>
+      <p id="solo-result-note"></p>
+      <form id="name-form" class="name-form" hidden>
+        <label for="player-name">You made the top 10. Enter your name:</label>
+        <div class="name-row"><input id="player-name" type="text" maxlength="10" autocomplete="nickname" autocapitalize="characters" placeholder="YOUR NAME" aria-describedby="name-error"><button type="submit">SAVE</button></div>
+        <p class="name-error" id="name-error" role="alert" hidden></p>
+      </form>
+      <div class="leaderboard-heading"><h2>HIGH SCORES</h2><span>FASTEST FIRST</span></div>
+      <ol class="leaderboard" id="leaderboard"></ol>
+      <div class="result-actions"><button type="button" class="action-button" id="solo-again">TRY AGAIN <span>↻</span></button><button type="button" class="secondary-button" id="solo-modes">MODES</button></div>
+    </section>
+
+    <section class="screen duel-screen" id="duel-screen" aria-labelledby="duel-title" hidden>
+      <div class="duel-status"><span id="duel-round">FLASH 1 / 10</span><strong id="duel-status" role="status">Tap Start to begin.</strong></div>
+      <div class="duel-arena" id="duel-arena">
+        <div class="duel-half player-one" id="player-one" role="button" tabindex="0" aria-label="Player 1 tap area">
+          <div class="duel-inner"><span>PLAYER 1</span><strong id="score-one">0</strong><small id="cue-one">WAIT FOR IT</small></div>
+        </div>
+        <div class="arena-divider" aria-hidden="true"><span>VS</span></div>
+        <div class="duel-half player-two" id="player-two" role="button" tabindex="0" aria-label="Player 2 tap area">
+          <div class="duel-inner"><span>PLAYER 2</span><strong id="score-two">0</strong><small id="cue-two">WAIT FOR IT</small></div>
+        </div>
+      </div>
+      <button type="button" class="action-button" id="duel-start">START 10 FLASHES <span>→</span></button>
+      <p class="footnote" id="duel-footnote">Player 1 sits at the top, Player 2 at the bottom. Tap your half first after the flash. Early taps cost 1 point.</p>
+    </section>
+
+    <section class="screen duel-result-screen" id="duel-result-screen" aria-labelledby="duel-result-title" hidden>
+      <div class="result-symbol" aria-hidden="true">✦</div>
+      <span class="eyebrow">TEN FLASHES LATER</span>
+      <h1 id="duel-result-title"></h1>
+      <p id="duel-result-note"></p>
+      <div class="final-scores"><div><span>PLAYER 1</span><strong id="final-one">0</strong></div><div><span>PLAYER 2</span><strong id="final-two">0</strong></div></div>
+      <div class="result-actions"><button type="button" class="action-button" id="duel-again">REMATCH <span>↻</span></button><button type="button" class="secondary-button" id="duel-modes">MODES</button></div>
+    </section>
+  </main>
+</body>
+</html>

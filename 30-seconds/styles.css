@@ -8,6 +8,10 @@ input:focus-visible,button:focus-visible,textarea:focus-visible{outline:3px soli
 .in-round .masthead{display:none}
 .round-screen{min-height:calc(100svh - 42px)}
 .game-card{min-height:max(330px,55svh)}
+.home-link,.round-home-link{flex:none;width:35px;height:35px;display:grid;place-items:center;border:2px solid #1745af;border-radius:10px;color:#1745af;background:#fff;text-decoration:none;font-size:21px;font-weight:900}
+.round-player{flex:1;min-width:0}
+.round-home-link{align-self:flex-start;margin-top:4px}
+.home-link:focus-visible,.round-home-link:focus-visible{outline:3px solid #ffba08;outline-offset:3px}
 .setup-hint{margin:14px 2px 0;color:#75819a;font-size:12px;line-height:1.4}
 .space.blue{background:#e7efff;border-color:#cbdafb}
 .space.yellow{background:#fff3bc;border-color:#f0df92}
