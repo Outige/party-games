@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#4520a8">
+  <meta name="description" content="A pass-the-phone forehead guessing game for friends.">
+  <title>Headbanz · Party Starter</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a href="../index.html" id="home-link" class="home-link" aria-label="All games">←</a>
+      <div class="brand">HEAD<span>BANZ</span><i>?</i></div>
+      <span class="turn-chip" id="turn-chip" hidden>TURN 1</span>
+    </header>
+
+    <section class="screen setup-screen" id="setup-screen" aria-labelledby="setup-title">
+      <div class="hero">
+        <span class="eyebrow">THE FOREHEAD GUESSING GAME</span>
+        <div class="hero-icon" aria-hidden="true">?</div>
+        <h1 id="setup-title">Who<br><em>am I?</em></h1>
+        <p>Hold the phone facing your friends. Ask questions, follow their clues, and guess the name before time runs out.</p>
+      </div>
+      <form id="setup-form" class="setup-form" novalidate>
+        <div class="setup-panel">
+          <div class="panel-heading"><label for="player-count">Players</label><span>2–8 people</span></div>
+          <div class="stepper"><button type="button" id="remove-player" aria-label="Remove player">−</button><output id="player-count">2</output><button type="button" id="add-player" aria-label="Add player">+</button></div>
+          <div class="player-fields" id="player-fields"></div>
+        </div>
+        <div class="setup-panel deck-panel">
+          <div class="panel-heading"><strong>Cards</strong><span>Choose a deck</span></div>
+          <div class="deck-options">
+            <label><input type="radio" name="deck" value="default" checked><span>Party deck</span></label>
+            <label><input type="radio" name="deck" value="custom"><span>Custom JSON</span></label>
+          </div>
+          <div class="custom-wrap" id="custom-wrap" hidden>
+            <label for="custom-json">Paste a JSON deck</label>
+            <textarea id="custom-json" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder='{"cards":["Shrek","Taylor Swift","Table Mountain"]}'></textarea>
+            <small>Use unique names in a “cards” array. This stays in your browser.</small>
+          </div>
+        </div>
+        <p class="error" id="setup-error" role="alert" hidden></p>
+        <button type="submit" class="button button-primary" id="start-game">LET'S PLAY <span>↗</span></button>
+      </form>
+    </section>
+
+    <section class="screen ready-screen" id="ready-screen" aria-labelledby="ready-title" hidden>
+      <span class="eyebrow" id="ready-eyebrow">YOU'RE UP</span>
+      <h1 id="ready-title"><span id="ready-name"></span><br><em>get ready!</em></h1>
+      <div class="instructions">
+        <div class="instruction-icon" aria-hidden="true">↗</div>
+        <p><strong>Put the phone on your forehead, screen facing out.</strong> A friend taps Start when you can't see it.</p>
+        <p>Ask yes-or-no questions. Your friends tap <b>Correct</b> or <b>Pass</b> to move to the next card.</p>
+      </div>
+      <div class="mini-scores" id="ready-scores"></div>
+      <button type="button" class="button button-primary" id="start-round">START 60-SECOND TURN <span>→</span></button>
+    </section>
+
+    <section class="screen play-screen" id="play-screen" aria-labelledby="play-title" hidden>
+      <div class="play-heading"><div><span class="eyebrow">GUESSING NOW</span><h1 id="play-title"></h1></div><div class="timer" id="timer" role="timer" aria-label="Seconds remaining">60</div></div>
+      <div class="timer-track"><div id="timer-progress"></div></div>
+      <div class="word-card"><div class="word-card-top">WHO AM I? <span>✳</span></div><div id="current-card" class="word"></div><div class="word-card-bottom">FRIENDS: GIVE CLUES!</div></div>
+      <div class="play-actions"><button type="button" class="button button-pass" id="pass-card">PASS <span>↷</span></button><button type="button" class="button button-correct" id="correct-card">CORRECT <span>✓</span></button></div>
+      <div class="round-score">THIS TURN <strong id="round-score">0</strong></div>
+    </section>
+
+    <section class="screen turn-end-screen" id="turn-end-screen" aria-labelledby="turn-end-title" hidden>
+      <div class="celebrate" aria-hidden="true">✳</div>
+      <span class="eyebrow" id="turn-end-label">TIME'S UP!</span>
+      <h1 id="turn-end-title"><span id="turn-end-name"></span><br><em id="turn-end-score">0 correct!</em></h1>
+      <div class="mini-scores" id="turn-end-scores"></div>
+      <p id="next-player-note" class="next-note"></p>
+      <button type="button" class="button button-primary" id="next-turn">PASS THE PHONE <span>→</span></button>
+    </section>
+
+    <section class="screen results-screen" id="results-screen" aria-labelledby="results-title" hidden>
+      <div class="trophy" aria-hidden="true">★</div>
+      <span class="eyebrow" id="results-reason">GAME OVER</span>
+      <h1 id="results-title">The<br><em>scoreboard.</em></h1>
+      <p id="results-summary"></p>
+      <div class="leaderboard" id="leaderboard"></div>
+      <div class="stats" id="stats"></div>
+      <div class="results-actions"><button type="button" class="button button-primary" id="play-again">PLAY AGAIN <span>↻</span></button><button type="button" class="button button-secondary" id="new-game">NEW GAME</button></div>
+    </section>
+
+    <button type="button" class="end-button" id="end-game" hidden aria-label="Hold for 3 seconds to end game"><span class="end-progress" aria-hidden="true"></span><span class="end-text">HOLD 3s TO END GAME</span></button>
+  </main>
+</body>
+</html>
