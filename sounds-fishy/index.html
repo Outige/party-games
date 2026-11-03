@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#08394b">
+  <meta name="description" content="A pass-the-phone bluffing game for 4 to 10 players.">
+  <title>Sounds Fishy · Party Starter</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a href="../index.html" class="home-link" aria-label="All games">←</a>
+      <div class="brand">SOUNDS <span>FISHY</span></div>
+      <button type="button" id="settings-button" class="small-button">Settings</button>
+    </header>
+    <div id="screen" class="screen" aria-live="polite"></div>
+    <button type="button" id="end-game" class="end-button" hidden><span class="hold-fill"></span><span class="hold-label">Hold 3 seconds to end game</span></button>
+  </main>
+  <dialog id="settings-dialog">
+    <div class="dialog-inner">
+      <h2>Settings</h2>
+      <p>Played answers are remembered on this device, including after you close the browser.</p>
+      <p id="history-count"></p>
+      <button type="button" id="clear-history" class="button secondary">Wipe played question history</button>
+      <p id="settings-message" role="status"></p>
+      <button type="button" id="close-settings" class="button">Done</button>
+    </div>
+  </dialog>
+</body>
+</html>

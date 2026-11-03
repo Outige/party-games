@@ -153,6 +153,9 @@ h1 span {
   background: #171b27;
 }
 
+.card-art-fishy { background: #70d8e5; }
+.fishy-mark { font-size: 8rem; filter: drop-shadow(7px 8px 0 #171325); transform: rotate(-12deg); }
+
 .blnk-mark {
   display: grid;
   width: 10rem;

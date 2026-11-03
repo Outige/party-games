@@ -3,7 +3,6 @@
 A collection of small, phone-friendly games built with plain HTML, CSS, and JavaScript.
 
 ## TODO List
-- Sounds fishy
 - Me niego
 - Guess My Answer: Couples guessing game
 - This or That — simultaneous reveal: Sit on opposite sides of the phone. Read the same question and then
@@ -23,6 +22,8 @@ python3 -m http.server 8000
 Then open `http://localhost:8000`.
 
 ## Games
+
+- **Sounds Fishy** — A pass-the-phone bluffing game for 4–10 players. The fish see their roles and the true answer, then the guesser reads the question and flips players by name. Played answers persist across visits; clear them in Settings. Hold the end-game button for three seconds to declare the winner. Open it at `sounds-fishy/index.html`.
 
 - **Ice Breakers** — Select a question category and pass the phone around. Asked questions are kept out of the deck for the rest of the browser session.
 - **30 Seconds** — Race along a blue and yellow board. Each turn uses one card with five clues per face; flip between faces during the 30-second round, then score 0–10 correct answers. Open it at `30-seconds/index.html`.
