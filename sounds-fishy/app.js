@@ -109,17 +109,11 @@ function render() {
     $("show-fish").onclick = () => { state.phase = "fish"; save(); render(); };
   } else if (state.phase === "fish") {
     const roles = state.players.map((player, i) => i === state.guesser ? "" : `<div class="role ${i === round.blue ? "blue" : "red"}"><span>${safe(player.name)}</span><strong>${i === round.blue ? "BLUE · tell truth" : "RED · invent a lie"}</strong></div>`).join("");
-    setScreen(`<p class="eyebrow">Fish only · keep this secret</p><h1>Know your<br><em>fish.</em></h1><div class="role-list">${roles}</div><div class="card answer"><span class="badge">THE CARD</span><h2>${safe(round.card.question)}</h2><p><strong>True answer:</strong> ${safe(round.card.answer)}</p></div><p class="instruction warning">Fish: take a photo of this screen so you can check the answer later. Then pass the phone to ${safe(guesser.name)}.</p><button id="hide-answer" class="button">Hide answer & pass phone →</button>`);
-    $("hide-answer").onclick = () => { state.phase = "handoff"; save(); render(); };
-  } else if (state.phase === "handoff") {
-    setScreen(`<p class="eyebrow">Answer hidden</p><h1>Pass to<br><em>${safe(guesser.name)}.</em></h1><p class="instruction">Fish: make sure the answer is off screen. Guesser: tap below, read the question aloud quickly, then ask each fish for an answer.</p><button id="show-question" class="button">I'm the guesser · show question →</button>`);
-    $("show-question").onclick = () => { state.phase = "question"; save(); render(); };
-  } else if (state.phase === "question") {
-    setScreen(`<p class="eyebrow">${safe(guesser.name)} is guessing</p><div class="card question"><span class="badge">READ ALOUD</span><h2>${safe(round.card.question)}</h2></div><p class="instruction">Ask each fish for their answer. The blue fish must say the true answer while trying to sound suspicious.</p><button id="start-elimination" class="button">Hear answers · start flipping →</button>`);
-    $("start-elimination").onclick = () => { state.phase = "eliminate"; save(); render(); };
+    setScreen(`<p class="eyebrow">Fish only · keep this secret</p><h1>Know your<br><em>fish.</em></h1><div class="role-list">${roles}</div><div class="card answer"><span class="badge">TRUE ANSWER</span><h2>${safe(round.card.answer)}</h2></div><p class="instruction warning">Fish: take a photo of this screen. Tap once to hide the answer, then pass the phone to ${safe(guesser.name)}.</p><button id="hide-answer" class="button">Hide answer & show guesser screen →</button>`);
+    $("hide-answer").onclick = () => { state.phase = "eliminate"; save(); render(); };
   } else if (state.phase === "eliminate") {
     const fish = state.players.map((player, i) => i === state.guesser ? "" : `<button type="button" class="fish" data-fish="${i}" ${round.flipped.includes(i) ? "disabled" : ""}><span>${safe(player.name)}</span><span>${round.flipped.includes(i) ? "Caught red ✓" : "Flip fish →"}</span></button>`).join("");
-    setScreen(`<p class="eyebrow">${safe(guesser.name)} · ${round.flipped.length} red caught</p><h1>Who sounds<br><em>fishy?</em></h1><div class="card question"><span class="badge">QUESTION</span><h2>${safe(round.card.question)}</h2></div><p class="instruction">Tap a name to flip one fish. You can stop and bank ${round.flipped.length} point${round.flipped.length === 1 ? "" : "s"} now.</p><div class="fish-list">${fish}</div><button id="bank" class="button secondary">Stop & bank ${round.flipped.length} point${round.flipped.length === 1 ? "" : "s"}</button>`);
+    setScreen(`<p class="eyebrow">${safe(guesser.name)} · ${round.flipped.length} red caught</p><h1>Who sounds<br><em>fishy?</em></h1><div class="card question"><span class="badge">READ ALOUD</span><h2>${safe(round.card.question)}</h2></div><p class="instruction">Read the question quickly and ask each fish for an answer. Tap names to flip fish, or bank ${round.flipped.length} point${round.flipped.length === 1 ? "" : "s"} now.</p><div class="fish-list">${fish}</div><button id="bank" class="button secondary">Stop & bank ${round.flipped.length} point${round.flipped.length === 1 ? "" : "s"}</button>`);
     document.querySelectorAll("[data-fish]").forEach((button) => button.onclick = () => flip(Number(button.dataset.fish)));
     $("bank").onclick = () => finishRound("bank");
   } else if (state.phase === "round-end") {
@@ -168,7 +162,9 @@ function restore() {
     if (!saved || !phases.includes(saved.phase) || !Array.isArray(saved.players) || saved.players.length < 4 || saved.players.length > 10 || !Number.isInteger(saved.guesser) || saved.guesser < 0 || saved.guesser >= saved.players.length || !saved.players.every((p) => typeof p.name === "string" && Number.isFinite(p.score))) return false;
     const cards = validateCards(saved.cards);
     if (saved.phase !== "exhausted" && saved.phase !== "ended" && (!saved.round || !cards.some((card) => cardId(card) === cardId(saved.round.card)) || !Number.isInteger(saved.round.blue) || saved.round.blue === saved.guesser || !Array.isArray(saved.round.flipped))) return false;
-    Object.assign(state, saved, { cards }); return true;
+    Object.assign(state, saved, { cards });
+    if (state.phase === "handoff" || state.phase === "question") { state.phase = "eliminate"; save(); }
+    return true;
   } catch (_) { return false; }
 }
 $("settings-button").onclick = () => { $("history-count").textContent = `${history().size} played answer${history().size === 1 ? "" : "s"} saved.`; $("settings-message").textContent = ""; $("settings-dialog").showModal(); };
