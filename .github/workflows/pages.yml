@@ -1,0 +1,35 @@
+name: Publish Pages
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    if: github.ref_type == 'branch' && github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare site
+        run: |
+          site_dir="$RUNNER_TEMP/party-games-site"
+          mkdir -p "$site_dir"
+          rsync -a --exclude='.git/' --exclude='.github/' --exclude='[Pp][Rr][Ii][Vv][Aa][Tt][Ee]/' ./ "$site_dir/"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/party-games-site
+      - uses: actions/deploy-pages@v4
+        id: deploy

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rock Paper Scissors</title>
+  <style>
+    body { font: 1rem system-ui, sans-serif; max-width: 34rem; margin: 3rem auto; padding: 0 1rem; text-align: center; }
+    button { font: inherit; padding: .7rem 1rem; margin: .3rem; cursor: pointer; }
+    button:disabled { cursor: default; opacity: .5; }
+    #game { display: none; }
+    #link { width: 100%; box-sizing: border-box; padding: .6rem; }
+    #status { min-height: 3rem; }
+  </style>
+</head>
+<body>
+  <h1>Rock Paper Scissors</h1>
+  <p id="status" role="status">Connecting…</p>
+
+  <div id="start" hidden>
+    <button id="create">Create game</button>
+  </div>
+
+  <div id="game">
+    <p>Send this link to your opponent:</p>
+    <input id="link" readonly aria-label="Game link">
+    <button id="copy">Copy link</button>
+    <p id="choice"></p>
+    <div id="moves">
+      <button data-move="rock">✊ Rock</button>
+      <button data-move="paper">✋ Paper</button>
+      <button data-move="scissors">✌️ Scissors</button>
+    </div>
+    <p><a href="./">New game</a></p>
+  </div>
+
+  <script src="firebase-config.js"></script>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
