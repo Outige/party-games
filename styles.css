@@ -154,6 +154,8 @@ h1 span {
 }
 
 .card-art-fishy { background: #70d8e5; }
+.card-art-fight { background: #ff698e; }
+.fight-mark { color: #fff7e8; font: 700 8rem/1 "Space Grotesk", sans-serif; letter-spacing: -0.12em; text-shadow: 8px 9px 0 #171325; transform: rotate(-9deg); }
 .fishy-mark { font-size: 8rem; filter: drop-shadow(7px 8px 0 #171325); transform: rotate(-12deg); }
 
 .blnk-mark {

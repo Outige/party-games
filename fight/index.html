@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151326">
+  <meta name="description" content="Pick two fighters, arm them, and watch a dice-powered party brawl.">
+  <title>Fight Clubhouse · Party Starter</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap');
+    :root { font-family: 'DM Sans',system-ui,sans-serif; color:#f8f5ed; background:#151326; --ink:#151326; --cream:#f8f5ed; --muted:#b7b3c9; --pink:#ff698e; --yellow:#ffd85c; --cyan:#75e4eb; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-width:300px; background:radial-gradient(circle at 92% 4%,#403063 0,transparent 34rem),#151326; }
+    button,select { font:inherit; }
+    button { cursor:pointer; }
+    button:focus-visible,select:focus-visible,a:focus-visible { outline:3px solid var(--cyan); outline-offset:3px; }
+    a { color:inherit; }
+    .shell { width:min(1200px,calc(100% - 32px)); margin:auto; padding:22px 0 64px; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .top-actions { display:flex; align-items:center; gap:9px; }
+    .settings-tab { padding:7px 10px; border:1px solid #6e6783; border-radius:7px; background:#211e34; color:var(--cream); font-size:.73rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+    .settings-tab[aria-pressed="true"] { background:var(--yellow); color:var(--ink); }
+    .back { color:var(--muted); text-decoration:none; font-size:.86rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+    .topmark { padding:7px 10px; border:1px solid #6e6783; border-radius:7px; color:var(--yellow); font-size:.73rem; font-weight:800; letter-spacing:.13em; }
+    .hero { margin:34px 0 25px; }
+    .eyebrow,.kicker { margin:0 0 8px; color:var(--yellow); font-size:.73rem; font-weight:800; letter-spacing:.19em; text-transform:uppercase; }
+    h1,h2,h3,p { margin-top:0; }
+    h1,h2,h3 { font-family:'Space Grotesk',sans-serif; }
+    h1 { margin-bottom:10px; font-size:clamp(3.7rem,10vw,7.8rem); line-height:.88; letter-spacing:-.075em; text-transform:uppercase; }
+    h1 span { color:var(--pink); }
+    .intro { max-width:620px; margin:0; color:#d4d0de; line-height:1.55; }
+    .layout { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(285px,.78fr); gap:20px; align-items:start; }
+    .panel { border:2px solid #5c5571; border-radius:18px; background:#211e34; box-shadow:8px 8px 0 #0c0b18; overflow:hidden; }
+    .panel-head { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:17px 20px; border-bottom:2px solid #5c5571; }
+    .panel-head h2 { margin:0; font-size:1.1rem; text-transform:uppercase; letter-spacing:.04em; }
+    .panel-head span { color:var(--muted); font-size:.75rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; }
+    .arena { position:relative; min-height:347px; overflow:hidden; background:linear-gradient(180deg,#393252 0 61%,#403a56 61% 62%,#29253b 62%); }
+    .arena:before { content:''; position:absolute; inset:0 0 38%; opacity:.35; background:radial-gradient(circle at 50% 68%,#a17aa7,transparent 48%),repeating-linear-gradient(90deg,transparent 0 57px,#8b80a1 58px 59px); }
+    .arena:after { content:''; position:absolute; left:-15%; right:-15%; bottom:-55px; height:180px; background:repeating-linear-gradient(90deg,transparent 0 74px,#5c526d 75px 77px); transform:perspective(180px) rotateX(28deg); opacity:.4; pointer-events:none; }
+    .hud { position:relative; z-index:2; display:grid; grid-template-columns:1fr auto 1fr; align-items:start; gap:10px; padding:18px; }
+    .hud-player:last-child { text-align:right; }
+    .hud-name { display:flex; align-items:center; gap:8px; margin-bottom:6px; font-size:.8rem; font-weight:800; text-transform:uppercase; }
+    .hud-player:last-child .hud-name { justify-content:flex-end; }
+    .class-dot { width:9px; height:9px; border-radius:50%; background:var(--class-color); box-shadow:0 0 12px var(--class-color); }
+    .hp-track { height:18px; padding:3px; border:2px solid #100f1d; border-radius:5px; background:#100f1d; box-shadow:0 3px 0 #ffffff22; }
+    .hp-fill { height:100%; width:100%; background:linear-gradient(90deg,#e34e77,#ff9e80); border-radius:2px; transition:width .45s ease; }
+    .hud-player:last-child .hp-fill { margin-left:auto; background:linear-gradient(90deg,#7ce3ee,#4499e6); }
+    .hp-text { margin:4px 0 0; color:#f8f5ed; font-size:.75rem; font-weight:800; }
+    .hud-weapon { display:inline-block; margin-top:3px; padding:2px 6px; border:1px solid #ffd85c88; border-radius:4px; background:#151326aa; color:var(--yellow); font-size:.65rem; font-weight:800; }
+    .round { padding:7px 10px; border:2px solid #100f1d; border-radius:6px; background:var(--yellow); color:var(--ink); font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:.78rem; white-space:nowrap; }
+    .fighters { position:absolute; z-index:2; inset:78px 0 0; display:flex; justify-content:space-around; align-items:end; padding:0 6% 35px; }
+    .fighter { position:relative; display:flex; width:34%; flex-direction:column; align-items:center; justify-content:end; transition:transform .22s cubic-bezier(.2,.8,.3,1); }
+    .fighter.right { transform:scaleX(-1); }
+    .fighter .avatar { display:grid; width:clamp(145px,28vw,245px); height:clamp(185px,34vw,265px); place-items:end center; user-select:none; filter:drop-shadow(8px 9px 3px #100f1dcc); }
+    .fighter .avatar img { display:block; width:100%; height:100%; object-fit:contain; object-position:center bottom; }
+    .fighter .shadow { width:72%; height:16px; margin-top:13px; border-radius:50%; background:#100f1dcc; filter:blur(3px); }
+    .fighter.attack.left { transform:translateX(56%) rotate(9deg) scale(1.12); }
+    .fighter.attack.right { transform:translateX(-56%) scaleX(-1) rotate(9deg) scale(1.12); }
+    .fighter.hit.left { transform:translateX(-12%) rotate(-12deg); }
+    .fighter.hit.right { transform:translateX(12%) scaleX(-1) rotate(-12deg); }
+    .fighter.block .avatar { filter:drop-shadow(0 0 13px #75e4eb); }
+    .fighter.special .avatar,.fighter.claim .avatar { filter:drop-shadow(0 0 22px #ffd85c) drop-shadow(0 0 8px #ffd85c); }
+    .fighter.claim.left { transform:translateX(44%) scale(1.12); }
+    .fighter.claim.right { transform:translateX(-44%) scaleX(-1) scale(1.12); }
+    .arena.weapon-drop:before { opacity:.65; background:radial-gradient(circle at 50% 58%,#ffeaa2 0,transparent 46%); }
+    .arena.weapon-drop .fighters { filter:brightness(.55); }
+    .arena.weapon-claimed .fighters { filter:brightness(.68); }
+    .arena.weapon-claimed .fighter.claim { filter:brightness(1.8); }
+    .arena.weapon-claimed .fighter { transition-duration:1.1s; }
+    .impact-effect { position:absolute; z-index:3; top:52%; width:min(42%,260px); height:230px; object-fit:contain; pointer-events:none; transform:translate(-50%,-50%); animation:impact-flash .55s ease-out both; }
+    .impact-effect[hidden] { display:none; }
+    .impact-effect.left { left:28%; }
+    .impact-effect.right { left:72%; }
+    @keyframes impact-flash { from { opacity:0; transform:translate(-50%,-50%) scale(.3) rotate(-15deg); } 35% { opacity:1; transform:translate(-50%,-50%) scale(1.15) rotate(6deg); } to { opacity:0; transform:translate(-50%,-50%) scale(1.35); } }
+    .weapon-event { position:absolute; z-index:5; top:42%; left:50%; display:grid; width:min(85%,320px); justify-items:center; gap:4px; padding:14px; border:3px solid #151326; border-radius:16px; background:#ffd85c; color:#151326; box-shadow:0 0 0 6px #fff4bf66,0 0 55px #ffd85c99,7px 8px 0 #151326; text-align:center; transform:translate(-50%,-50%); }
+    .weapon-event[hidden] { display:none; }
+    .weapon-event .event-kicker { font-size:.7rem; font-weight:800; letter-spacing:.17em; text-transform:uppercase; }
+    .weapon-event .event-icon { font-size:3.8rem; line-height:1; animation:weapon-float 1s ease-in-out infinite alternate; }
+    .weapon-event strong { font:700 clamp(1.1rem,4vw,1.65rem)/1.1 'Space Grotesk',sans-serif; text-transform:uppercase; }
+    .weapon-event .event-detail { font-size:.78rem; font-weight:800; }
+    .arena.weapon-drop .weapon-event { animation:drop-in 1.2s cubic-bezier(.16,.85,.35,1) both; }
+    .arena.weapon-claimed .weapon-event { background:#75e4eb; box-shadow:0 0 0 7px #75e4eb66,0 0 60px #75e4eb99,7px 8px 0 #151326; animation:claim-pop .6s ease-out both; }
+    .arena.paused .weapon-event,.arena.paused .weapon-event * { animation-play-state:paused!important; }
+    @keyframes drop-in { from { opacity:0; transform:translate(-50%,-125%) scale(1.7) rotate(-15deg); } 65% { opacity:1; transform:translate(-50%,-45%) scale(.94) rotate(4deg); } to { transform:translate(-50%,-50%) scale(1); } }
+    @keyframes claim-pop { from { transform:translate(-50%,-50%) scale(.82) rotate(-7deg); } to { transform:translate(-50%,-50%) scale(1) rotate(0); } }
+    @keyframes weapon-float { to { transform:translateY(-7px) rotate(8deg); } }
+    .arena-banner { position:absolute; z-index:4; top:47%; left:50%; width:max-content; max-width:90%; padding:8px 15px; border:2px solid #151326; border-radius:8px; background:var(--yellow); color:#151326; box-shadow:5px 5px 0 #151326; font:700 clamp(1rem,4vw,1.8rem)/1.1 'Space Grotesk',sans-serif; text-align:center; text-transform:uppercase; transform:translate(-50%,-50%) rotate(-3deg); }
+    .arena-banner[hidden] { display:none; }
+    .arena-caption { position:absolute; z-index:3; bottom:12px; left:0; right:0; padding:0 10px; text-align:center; color:#e5e0ee; font-size:.82rem; font-weight:700; text-shadow:0 2px 4px #141124; }
+    .controls { display:flex; flex-wrap:wrap; gap:10px; padding:17px 18px; }
+    .btn { min-height:44px; padding:10px 15px; border:2px solid #0f0c1a; border-radius:9px; background:var(--cream); color:var(--ink); box-shadow:3px 3px 0 #0f0c1a; font-weight:800; }
+    .btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:3px 5px 0 #0f0c1a; }
+    .btn:disabled { opacity:.48; cursor:not-allowed; }
+    .btn.primary { flex:1; background:var(--pink); }
+    .btn.yellow { background:var(--yellow); }
+    .speed { display:flex; align-items:center; gap:6px; margin-left:auto; color:var(--muted); font-size:.76rem; font-weight:800; text-transform:uppercase; }
+    .speed select { padding:7px 8px; border:2px solid #5c5571; border-radius:7px; background:#302b45; color:#fff; }
+    .log { margin-top:20px; }
+    .log-list { height:225px; margin:0; padding:12px 19px 18px 39px; overflow:auto; color:#dbd7e5; font-size:.86rem; line-height:1.5; }
+    .log-list li { margin:7px 0; padding-left:2px; }
+    .log-list li:first-child { color:var(--yellow); font-weight:800; }
+    .setup { display:grid; gap:18px; }
+    .picker-content { padding:17px; }
+    .side-toggle { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:15px; }
+    .side-toggle button { min-height:42px; border:2px solid #635a78; border-radius:8px; background:#302b45; color:#e6e2ee; font-weight:800; }
+    .side-toggle button[aria-pressed="true"] { border-color:var(--yellow); background:var(--yellow); color:var(--ink); }
+    .selection-title { display:flex; justify-content:space-between; gap:8px; margin:15px 0 9px; color:var(--muted); font-size:.75rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+    .selection-title span { color:var(--cream); letter-spacing:0; }
+    .roster { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; }
+    .choice { min-width:0; min-height:72px; padding:5px 2px; border:2px solid #514a64; border-radius:9px; background:#302b45; color:var(--cream); text-align:center; }
+    .choice:hover { border-color:var(--cyan); }
+    .choice[aria-pressed="true"] { border-color:var(--yellow); background:#4b3b54; box-shadow:inset 0 0 0 2px #ffd85c55; }
+    .choice:disabled { opacity:.35; cursor:not-allowed; }
+    .choice-icon { display:block; width:48px; height:48px; margin:0 auto 3px; object-fit:contain; filter:drop-shadow(0 2px 2px #0008); }
+    .choice-name { display:block; overflow:hidden; font-size:.66rem; font-weight:800; text-overflow:ellipsis; white-space:nowrap; }
+    .sheet { margin-top:14px; padding:12px; border:1px solid #5c5571; border-radius:9px; background:#171527; }
+    .sheet h3 { display:flex; align-items:center; gap:7px; margin:0 0 3px; font-size:1rem; }
+    .sheet h3 img { width:34px; height:34px; object-fit:contain; }
+    .sheet p { margin:0 0 10px; color:var(--muted); font-size:.75rem; }
+    .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:4px; }
+    .stat { padding:6px 2px; border-radius:5px; background:#302b45; text-align:center; }
+    .stat b { display:block; color:var(--yellow); font-size:1rem; }
+    .stat span { color:#c3bfd1; font-size:.58rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase; }
+    .weapon-copy { margin:9px 0 0; color:#c8c4d3; font-size:.75rem; line-height:1.45; }
+    .weapon-copy strong { color:var(--yellow); }
+    .rules { padding:17px 20px; color:#c8c4d3; font-size:.78rem; line-height:1.5; }
+    .rules p:last-child { margin-bottom:0; }
+    .rules strong { color:var(--cream); }
+    .rules .matrix { display:flex; flex-wrap:wrap; gap:6px; margin:9px 0 12px; }
+    .matrix span { padding:4px 7px; border-radius:5px; background:#39334d; color:#eeeaf4; font-weight:700; }
+    .settings-panel { max-width:660px; padding:23px; }
+    .settings-panel[hidden],#game-view[hidden],#settings-locked[hidden],#settings-unlocked[hidden] { display:none; }
+    .settings-panel h2 { margin:0 0 9px; font-size:1.6rem; }
+    .settings-panel p { color:#c8c4d3; line-height:1.5; }
+    .unlock-form { display:flex; flex-wrap:wrap; gap:9px; }
+    .unlock-form input { flex:1; min-width:145px; min-height:44px; padding:9px 11px; border:2px solid #6e6783; border-radius:8px; background:#171527; color:var(--cream); font:inherit; }
+    .settings-status { min-height:1.5em; margin:10px 0; font-weight:700; }
+    .results { width:100%; border-collapse:collapse; margin-top:16px; font-size:.9rem; }
+    .results th,.results td { padding:10px 7px; border-bottom:1px solid #5c5571; text-align:left; }
+    .results th:last-child,.results td:last-child { text-align:right; font-weight:800; }
+    .results tr:first-child td { color:var(--yellow); }
+    @media (max-width:850px) { .layout { grid-template-columns:1fr; } .setup { grid-template-columns:1fr 1fr; } .rules { align-self:start; } }
+    @media (max-width:580px) { .shell { width:min(100% - 22px,460px); padding-top:14px; } .hero { margin:27px 0 21px; } .layout,.setup { display:block; } .setup>.panel { margin-top:18px; } .arena { min-height:310px; } .fighters { padding:0 1% 40px; } .fighter .avatar { width:clamp(125px,38vw,175px); height:clamp(170px,56vw,215px); } .fighter.attack.left { transform:translateX(38%) rotate(9deg) scale(1.1); } .fighter.attack.right { transform:translateX(-38%) scaleX(-1) rotate(9deg) scale(1.1); } .fighter.claim.left { transform:translateX(30%) scale(1.1); } .fighter.claim.right { transform:translateX(-30%) scaleX(-1) scale(1.1); } .hud { gap:5px; padding:12px 9px; } .hud-name { font-size:.68rem; } .round { padding:5px; font-size:.65rem; } .controls { gap:8px; padding:13px; } .speed { width:100%; justify-content:flex-end; } .panel-head { padding:14px 16px; } }
+    @media (prefers-reduced-motion:reduce) { *,*:before,*:after { scroll-behavior:auto!important; animation-duration:.01ms!important; transition-duration:.01ms!important; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Page navigation"><a class="back" href="../index.html">← Party Starter</a><div class="top-actions"><button class="settings-tab" id="settings-tab" type="button" aria-pressed="false">Settings</button><span class="topmark">AUTO BRAWLER / 01</span></div></nav>
+    <header class="hero"><p class="eyebrow">Pick · Watch · Cheer</p><h1>Fight<br><span>Clubhouse.</span></h1><p class="intro">Two fighters enter. The dice decide. Pick your characters, then watch two weapons drop during the fight. Only one fighter gets each one.</p></header>
+    <section class="panel settings-panel" id="settings-panel" hidden aria-labelledby="settings-title"><h2 id="settings-title">Settings</h2><div id="settings-locked"><p>Enter the password to open the match simulator.</p><form class="unlock-form" id="unlock-form"><input id="settings-password" type="password" autocomplete="off" aria-label="Settings password" placeholder="Password"><button class="btn yellow" type="submit">Unlock</button></form><p class="settings-status" id="unlock-status" role="status"></p></div><div id="settings-unlocked" hidden><p>Run 1,000 battles for every pair of fighters: 28,000 matches total. The simulation uses the same combat rules without animation or delays.</p><button class="btn yellow" id="simulate-button" type="button">Run 28,000 matches</button><p class="settings-status" id="simulation-status" role="status"></p><table class="results" id="results" hidden><thead><tr><th scope="col">Rank</th><th scope="col">Fighter</th><th scope="col">Wins</th></tr></thead><tbody id="results-body"></tbody></table></div></section>
+    <div class="layout" id="game-view">
+      <div>
+        <section class="panel" aria-labelledby="arena-title">
+          <div class="panel-head"><h2 id="arena-title">The arena</h2><span id="match-status">Ready to rumble</span></div>
+          <div class="arena" id="arena">
+            <div class="hud">
+              <div class="hud-player"><div class="hud-name"><span class="class-dot" id="dot-0"></span><span id="hud-name-0"></span></div><div class="hp-track" role="progressbar" aria-label="Player 1 health" aria-valuemin="0" id="hp-track-0"><div class="hp-fill" id="hp-fill-0"></div></div><p class="hp-text" id="hp-text-0"></p><span class="hud-weapon" id="hud-weapon-0">No weapon</span></div>
+              <div class="round" id="round-display">ROUND 0</div>
+              <div class="hud-player"><div class="hud-name"><span id="hud-name-1"></span><span class="class-dot" id="dot-1"></span></div><div class="hp-track" role="progressbar" aria-label="Player 2 health" aria-valuemin="0" id="hp-track-1"><div class="hp-fill" id="hp-fill-1"></div></div><p class="hp-text" id="hp-text-1"></p><span class="hud-weapon" id="hud-weapon-1">No weapon</span></div>
+            </div>
+            <div class="fighters" aria-hidden="true"><div class="fighter left" id="fighter-0"><div class="avatar" id="avatar-0"></div><div class="shadow"></div></div><div class="fighter right" id="fighter-1"><div class="avatar" id="avatar-1"></div><div class="shadow"></div></div></div><img class="impact-effect" id="impact-effect" alt="" hidden>
+            <div class="arena-banner" id="arena-banner">Choose your fighters</div><div class="weapon-event" id="weapon-event" hidden aria-live="assertive"><span class="event-kicker" id="event-kicker">Weapon drop</span><span class="event-icon" id="event-icon" aria-hidden="true"></span><strong id="event-title"></strong><span class="event-detail" id="event-detail"></span></div><div class="arena-caption" id="arena-caption">Set up both players to start.</div>
+          </div>
+          <div class="controls"><button class="btn primary" id="start-button" type="button">Start fight</button><button class="btn" id="pause-button" type="button" disabled>Pause</button><button class="btn yellow" id="reset-button" type="button">Rematch</button><label class="speed">Speed <select id="speed-select" aria-label="Fight speed"><option value="900">Chill</option><option value="650" selected>Normal</option><option value="450">Fast</option></select></label></div>
+        </section>
+        <section class="panel log" aria-labelledby="log-title"><div class="panel-head"><h2 id="log-title">Play by play</h2><span>Dice rolls shown</span></div><ol class="log-list" id="log-list" aria-live="polite"><li>Choose both fighters and press Start fight.</li></ol></section>
+      </div>
+      <aside class="setup" aria-label="Match setup">
+        <section class="panel" aria-labelledby="setup-title"><div class="panel-head"><h2 id="setup-title">Build your match</h2><span>2 players</span></div><div class="picker-content"><div class="side-toggle" role="group" aria-label="Select player"><button type="button" id="side-0" aria-pressed="true">Player 1</button><button type="button" id="side-1" aria-pressed="false">Player 2</button></div><div class="selection-title">Fighter <span id="fighter-count">8 to choose</span></div><div class="roster" id="character-roster" aria-label="Characters"></div><div class="sheet" id="sheet"></div></div></section>
+        <section class="panel" aria-labelledby="rules-title"><div class="panel-head"><h2 id="rules-title">How the dice work</h2><span>No buttons mid-fight</span></div><div class="rules"><p>Exactly two weapons drop during a fight, roughly 2 and 10 seconds in. Each goes to one random fighter. A new pickup replaces that fighter's old weapon. Its stat boost lasts while held; its special fires once on the next turn.</p><p>Both fighters take a turn each round. A d20 attack roll checks for a hit. Defence reduces damage; a block roll can stop even more. There is no fight timer: a knockout decides the winner.</p><div class="matrix"><span>🔥 Fire &gt; Air</span><span>💨 Air &gt; Water</span><span>💧 Water &gt; Fire</span><span>🪨 Earth = neutral</span></div><p><strong>Tip:</strong> The same character cannot be used by both players. Changing a pick resets the match.</p></div></section>
+      </aside>
+    </div>
+  </main>
+  <script src="combat.js"></script>
+  <script>
+    'use strict';
+    const {characters,weapons,roll}=CombatCore;
+    const $ = id => document.getElementById(id);
+    const sides = [{character:0},{character:4}];
+    let selectedSide = 0, fighters = [], running = false, paused = false, finished = false, round = 0, turnQueue = [], timer = null, animationTimer = null, phase = 'idle', droppedWeapon = null, weaponDeck = [], dueAt = 0, pauseRemaining = 0, fightStartedAt = 0, pausedTotal = 0, pausedAt = 0, weaponDrops = 0;
+    const sprite = c => `images/${c.image}`;
+    function log(message) {
+      const item = document.createElement('li'); item.textContent=message;
+      const list=$('log-list'); list.prepend(item);
+      while(list.children.length>40) list.lastElementChild.remove();
+    }
+    function makeFighter(side) { return CombatCore.createFighter(side.character); }
+    function updateHud() {
+      fighters.forEach((f,i)=>{
+        $('hud-name-'+i).textContent=f.character.name;
+        $('dot-'+i).style.setProperty('--class-color',f.character.color);
+        let image=$('avatar-'+i).firstElementChild;
+        if(!image) { image=document.createElement('img'); image.alt=''; $('avatar-'+i).append(image); }
+        if(image.getAttribute('src')!==sprite(f.character)) image.src=sprite(f.character);
+        $('hud-weapon-'+i).textContent=f.weapon?`${f.weapon.icon} ${f.weapon.name}`:'No weapon';
+        $('hp-fill-'+i).style.width=(f.hp/f.stats[3]*100)+'%';
+        $('hp-text-'+i).textContent=`${f.hp} / ${f.stats[3]} HP${f.shield ? ' · '+f.shield+' shield' : ''}`;
+        $('hp-track-'+i).setAttribute('aria-valuemax',f.stats[3]);
+        $('hp-track-'+i).setAttribute('aria-valuenow',f.hp);
+      });
+      $('round-display').textContent='ROUND '+round;
+    }
+    function banner(message,show=true) { $('arena-banner').textContent=message; $('arena-banner').hidden=!show; }
+    function caption(message) { $('arena-caption').textContent=message; $('match-status').textContent=message; }
+    function clearMotion() { clearTimeout(animationTimer); $('fighter-0').className='fighter left'; $('fighter-1').className='fighter right'; }
+    function clearWeaponEvent() { $('arena').classList.remove('weapon-drop','weapon-claimed'); $('weapon-event').hidden=true; clearTimeout(effectTimer); $('impact-effect').hidden=true; clearMotion(); }
+    function animate(attacker, defender, kind) {
+      clearMotion();
+      $('fighter-'+attacker).classList.add(kind==='special'?'special':'attack');
+      if(defender!==null) $('fighter-'+defender).classList.add(kind==='block'?'block':'hit');
+      animationTimer=setTimeout(clearMotion,Math.min(650,Number($('speed-select').value)*.65));
+    }
+    function stopTimer() { clearTimeout(timer); timer=null; }
+    function scheduleNext(delay) { stopTimer(); dueAt=performance.now()+delay; timer=setTimeout(step,delay); }
+    function resetMatch() {
+      stopTimer(); clearWeaponEvent(); $('arena').classList.remove('paused'); running=false; paused=false; finished=false; round=0; turnQueue=[]; phase='idle'; droppedWeapon=null; weaponDeck=[]; weaponDrops=0; pausedTotal=0;
+      fighters=sides.map(makeFighter); updateHud(); banner('Choose your fighters'); caption('Set up both players to start.');
+      $('start-button').textContent='Start fight'; $('start-button').disabled=false; $('pause-button').disabled=true; $('pause-button').textContent='Pause';
+      $('log-list').replaceChildren(); log('Choose both fighters and press Start fight.'); renderPicker();
+    }
+    function renderPicker() {
+      [0,1].forEach(i=>{$('side-'+i).setAttribute('aria-pressed',i===selectedSide);});
+      const current=sides[selectedSide], other=sides[1-selectedSide], locked=running||finished;
+      const charRoster=$('character-roster'); charRoster.replaceChildren();
+      characters.forEach((c,i)=>{
+        const button=document.createElement('button'); button.type='button'; button.className='choice'; button.disabled=locked||i===other.character; button.setAttribute('aria-pressed',i===current.character); button.setAttribute('aria-label',`${c.name}, ${c.class}${i===other.character?', chosen by other player':''}`);
+        button.innerHTML=`<img class="choice-icon" src="${sprite(c)}" alt=""><span class="choice-name">${c.name}</span>`;
+        button.addEventListener('click',()=>{sides[selectedSide].character=i; resetMatch();}); charRoster.append(button);
+      });
+      const c=characters[current.character], f=fighters[selectedSide], stats=f.stats;
+      $('sheet').innerHTML=`<h3><img src="${sprite(c)}" alt="">${c.name} · ${c.class}</h3><p>Player ${selectedSide+1}${f.weapon?' · holding '+f.weapon.name:' · waiting for a weapon drop'}</p><div class="stats">${stats.map((n,i)=>`<div class="stat"><b>${n}</b><span>${['Attack','Defence','Block','Health'][i]}</span></div>`).join('')}</div>${f.weapon?`<div class="weapon-copy"><strong>${f.weapon.icon} ${f.weapon.special}:</strong> ${f.weapon.description} <span style="color:#a9a2bc">(${f.specialUsed?'used':'ready'})</span></div>`:''}`;
+    }
+    function finish(winner) {
+      running=false; finished=true; stopTimer(); clearWeaponEvent();
+      const name=winner===null?'Draw':fighters[winner].character.name+' wins!';
+      banner(name); caption(winner===null?'The dice call it a draw.':'Fight over · '+name);
+      log(winner===null?'The match ends in a draw.':`${name} The crowd goes wild!`);
+      $('start-button').disabled=true; $('pause-button').disabled=true; renderPicker();
+    }
+    function startWeaponDrop() {
+      droppedWeapon=CombatCore.drawWeapon(weaponDeck); weaponDrops++; phase='drop'; clearMotion();
+      $('event-kicker').textContent=`Weapon ${weaponDrops} of 2 · Slow motion`;
+      $('event-icon').textContent=droppedWeapon.icon;
+      $('event-title').textContent=droppedWeapon.name+' appears!';
+      $('event-detail').textContent='Who will claim it?';
+      $('weapon-event').hidden=false;
+      $('arena').classList.remove('weapon-claimed'); $('arena').classList.add('weapon-drop');
+      banner('',false); caption(`${droppedWeapon.name} has dropped!`);
+      log(`🎁 Weapon drop ${weaponDrops}/2: ${droppedWeapon.name} enters the arena!`);
+      updateHud(); scheduleNext(1200);
+    }
+    function claimWeapon() {
+      const winner=roll(2)-1, f=fighters[winner];
+      CombatCore.claimWeapon(f,droppedWeapon);
+      clearMotion(); $('fighter-'+winner).classList.add('claim');
+      $('arena').classList.remove('weapon-drop'); $('arena').classList.add('weapon-claimed');
+      $('event-kicker').textContent=`Player ${winner+1} claimed it!`;
+      $('event-title').textContent=`${f.character.name} gets ${droppedWeapon.name}!`;
+      $('event-detail').textContent=`${droppedWeapon.special} ready · ${droppedWeapon.description}`;
+      caption(`${f.character.name} won the ${droppedWeapon.name}!`);
+      log(`🏆 ${f.character.name} claims ${droppedWeapon.name}! ${droppedWeapon.special} is ready.`);
+      phase='claim'; updateHud(); renderPicker(); scheduleNext(1200);
+    }
+    const elementEffects={Fire:['fire1.png','fire2.png','fire3.png'],Air:['air1.png'],Water:['water1.png','water2.png','water3.png'],Earth:['earth1.png','earth2.png']};
+    let effectTimer=null;
+    function showEffect(element,target,lightning=false) {
+      const effect=$('impact-effect');
+      clearTimeout(effectTimer);
+      const choices=elementEffects[element];
+      effect.src=`images/effects/${lightning?'lightning.png':choices[roll(choices.length)-1]}`;
+      effect.className='impact-effect '+(target===0?'left':'right');
+      effect.hidden=false;
+      void effect.offsetWidth;
+      effect.style.animation='none';
+      void effect.offsetWidth;
+      effect.style.animation='';
+      effectTimer=setTimeout(()=>{effect.hidden=true;},550);
+    }
+    function useSpecial(i) {
+      const user=fighters[i], {weapon:w,result}=CombatCore.useSpecial(fighters,i);
+      const offensive=w.type==='damage'||w.type==='stun';
+      animate(i,offensive?1-i:null,'special');
+      showEffect(user.character.class,offensive?1-i:i,w.name==='Storm Fan');
+      log(`✨ ${user.character.name} uses ${w.special}: ${result}.`); caption(`${user.character.name} uses ${w.special}!`); updateHud();
+    }
+    function attack(i) {
+      const a=fighters[i],d=fighters[1-i],outcome=CombatCore.attack(fighters,i,round);
+      if(outcome.type==='stunned') { log(`💫 ${a.character.name} is stunned and misses a turn.`); caption(`${a.character.name} misses a turn!`); return; }
+      if(outcome.type==='miss') { animate(i,null,'attack'); log(`${a.character.name} rolls ${outcome.die} vs ${outcome.hitTarget} and misses ${d.character.name}.`); caption(`${a.character.name} swings and misses!`); return; }
+      const {die,hitTarget,result,damageDie,edge,critical,blocked,blockDie,blockTarget,reflected}=outcome;
+      animate(i,1-i,blocked?'block':'attack'); showEffect(a.character.class,1-i);
+      let message=`${a.character.name} rolls ${die} vs ${hitTarget}, hits for ${result.dealt} (${damageDie} on damage die${edge?' · '+(edge>0?'class advantage':'class weakness'):''}${critical?' · CRIT':''})`;
+      if(blocked) message+=` · ${d.character.name} blocks (${blockDie} vs ${blockTarget})`;
+      if(result.absorbed) message+=` · ${result.absorbed} absorbed by shield`;
+      log(message+'.'); caption(`${a.character.name} hits for ${result.dealt}${blocked?' through a block':''}!`);
+      if(reflected) log(`🪞 ${d.character.name} reflects ${reflected.dealt} damage!`);
+      updateHud();
+    }
+    function step() {
+      if(!running||paused) return;
+      if(phase==='drop') { claimWeapon(); return; }
+      if(phase==='claim') { clearWeaponEvent(); phase='combat'; }
+      const elapsed=performance.now()-fightStartedAt-pausedTotal;
+      if(weaponDrops<2 && elapsed >= [2000,10000][weaponDrops]) { startWeaponDrop(); return; }
+      if(turnQueue.length===0) { round++; turnQueue=roll(2)===1?[0,1]:[1,0]; updateHud(); }
+      const acting=turnQueue[0], current=fighters[acting];
+      if(current.weapon&&!current.specialUsed&&!current.stunned) {
+        useSpecial(acting); renderPicker();
+        if(fighters[1-acting].hp<=0) { finish(acting); return; }
+        scheduleNext(Number($('speed-select').value)); return;
+      }
+      attack(turnQueue.shift());
+      if(fighters[0].hp<=0||fighters[1].hp<=0) { finish(fighters[0].hp===fighters[1].hp?null:fighters[0].hp>0?0:1); return; }
+      scheduleNext(Number($('speed-select').value));
+    }
+    $('side-0').addEventListener('click',()=>{selectedSide=0; renderPicker();});
+    $('side-1').addEventListener('click',()=>{selectedSide=1; renderPicker();});
+    $('start-button').addEventListener('click',()=>{if(running||finished)return; running=true; fightStartedAt=performance.now(); pausedTotal=0; banner('',false); caption('The fight is on!'); $('start-button').disabled=true; $('pause-button').disabled=false; $('log-list').replaceChildren(); log(`${fighters[0].character.name} vs ${fighters[1].character.name} · Fight!`); renderPicker(); scheduleNext(300);});
+    $('pause-button').addEventListener('click',()=>{if(!running)return; paused=!paused; $('pause-button').textContent=paused?'Resume':'Pause'; if(paused){pausedAt=performance.now();pauseRemaining=Math.max(0,dueAt-pausedAt);stopTimer();$('arena').classList.add('paused');caption('Fight paused.');}else{pausedTotal+=performance.now()-pausedAt;$('arena').classList.remove('paused');caption(phase==='drop'?'Weapon incoming!':phase==='claim'?'Weapon claimed!':'The fight is on!');scheduleNext(pauseRemaining);}});
+    $('reset-button').addEventListener('click',resetMatch);
+    $('settings-tab').addEventListener('click',()=>{
+      const show=$('settings-panel').hidden;
+      $('settings-panel').hidden=!show;
+      $('game-view').hidden=show;
+      $('settings-tab').setAttribute('aria-pressed',show);
+      $('settings-tab').textContent=show?'Back to fight':'Settings';
+      if(show&&!$('settings-locked').hidden) $('settings-password').focus();
+    });
+    $('unlock-form').addEventListener('submit',event=>{
+      event.preventDefault();
+      if($('settings-password').value!=='123') { $('unlock-status').textContent='Wrong password.'; return; }
+      $('settings-password').value='';
+      $('settings-locked').hidden=true;
+      $('settings-unlocked').hidden=false;
+    });
+    $('simulate-button').addEventListener('click',()=>{
+      const button=$('simulate-button');
+      button.disabled=true;
+      $('results').hidden=true;
+      $('simulation-status').textContent='Running 28,000 matches…';
+      let worker;
+      try { worker=new Worker('simulation-worker.js'); }
+      catch(error) { button.disabled=false; $('simulation-status').textContent='Could not start the simulator in this browser.'; return; }
+      worker.onmessage=event=>{
+        const {wins,draws,total}=event.data;
+        const order=wins.map((count,index)=>({name:characters[index].name,count,index})).sort((a,b)=>b.count-a.count||a.index-b.index);
+        const body=$('results-body'); body.replaceChildren();
+        order.forEach((entry,rank)=>{
+          const row=document.createElement('tr');
+          [String(rank+1),entry.name,entry.count.toLocaleString()].forEach(value=>{const cell=document.createElement('td');cell.textContent=value;row.append(cell);});
+          body.append(row);
+        });
+        $('results').hidden=false;
+        $('simulation-status').textContent=`${total.toLocaleString()} matches complete · ${draws.toLocaleString()} draws. Ranked by wins.`;
+        button.disabled=false; worker.terminate();
+      };
+      worker.onerror=()=>{ $('simulation-status').textContent='The simulation could not finish.'; button.disabled=false; worker.terminate(); };
+      worker.postMessage('run');
+    });
+    resetMatch();
+  </script>
+</body>
+</html>
